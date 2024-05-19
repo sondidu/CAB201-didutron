@@ -14,6 +14,7 @@ namespace Didutron
             {
                 throw new StringArgumentException(ErrorMessages.InvalidDirection);
             }
+
             this.direction = direction;
             CharRep = ObstacleConstants.CameraChar;
         }

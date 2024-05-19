@@ -21,6 +21,7 @@ namespace Didutron
             {
                 throw new IntArgumentException(ErrorMessages.InvalidLength);
             }
+
             this.orientation = orientation;
             this.length = length;
             CharRep = ObstacleConstants.FenceChar;

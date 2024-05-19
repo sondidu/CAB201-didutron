@@ -3,6 +3,7 @@ namespace ConstantsAndHelpers
 {
     public static class IntConstants
     {
+        // Argument lengths
         public const int GuardArgsLength = 2;
         public const int FenceArgsLength = 4;
         public const int SensorArgsLength = 3;
@@ -12,6 +13,7 @@ namespace ConstantsAndHelpers
         public const int PathArgsLength = 4;
         public const int NoArgs = 0;
 
+        // Argument indexes
         public const int CoordXIdx = 0;
         public const int CoordYIdx = 1;
         public const int OrientationIdx = 2;

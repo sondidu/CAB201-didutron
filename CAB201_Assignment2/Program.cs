@@ -33,6 +33,7 @@ namespace Didutron
             var rootCommand = new Command(commandChildren, ErrorMessages.InvalidOption);
             var runner = new Runner(rootCommand);
 
+            // Start by welcoming and show list of commands
             UserInterface.Welcome();
             UserInterface.Help();
 

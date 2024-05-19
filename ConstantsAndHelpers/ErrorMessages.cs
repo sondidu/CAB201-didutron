@@ -2,6 +2,7 @@
 {
     public static class ErrorMessages
     {
+        // Functionality messages
         public const string InvalidCoord = "Coordinates are not valid integers.";
         public const string InvalidOrientation = "Orientation must be 'east' or 'north'.";
         public const string InvalidLength = "Length must be a valid integer greater than 0.";
@@ -16,6 +17,7 @@
         public const string GoalObstructed = "The objective is blocked by an obstacle and cannot be reached.";
         public const string NoSafePath = "There is no safe path to the objective.";
 
+        // Command-related messages
         public const string IncorrectNumberOfArgs = "Incorrect number of arguments.";
         public const string UnspecifiedCommandKey = "A command key must be specified.";
         public const string InvalidCommandKey = "Invalid command key: {0}.";

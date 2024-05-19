@@ -14,6 +14,7 @@ namespace Didutron
             {
                 throw new DoubleArgumentException(ErrorMessages.InvalidRadius);
             }
+
             this.radius = radius;
             CharRep = ObstacleConstants.SensorChar;
         }

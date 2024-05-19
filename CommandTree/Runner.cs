@@ -33,7 +33,7 @@ namespace CommandTree
                 throw new InvalidCommandKeyException(commandIterator.InvalidCommandKeyMsg, parts[wordIdx], ex);
             }
 
-            // Copying the arguments to `args`
+            // Copying the arguments in parts to args
             int argCount = parts.Length - wordIdx;
             string[] args = new string[argCount];
             Array.Copy(parts, wordIdx, args, 0, argCount);
@@ -44,7 +44,7 @@ namespace CommandTree
         }
         public bool TryRun(string? input, out string message)
         {
-            input ??= "";
+            input ??= ""; // If null, convert to empty string
             try
             {
                 Run(input);
@@ -64,7 +64,7 @@ namespace CommandTree
                 message = ErrorMessages.IncorrectNumberOfArgs;
                 return false;
             }
-            catch(ArgumentException ex) // TODO: think whether create a billion of custom exceptions e.g. CoordException, PositiveIntException ig, RadiusException, ...
+            catch(ArgumentException ex)
             {
                 message = ex.Message;
                 return false;
