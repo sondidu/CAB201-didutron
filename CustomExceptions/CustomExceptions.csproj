@@ -7,9 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CommandValidation\CommandValidation.csproj" />
-    <ProjectReference Include="..\CustomExceptions\CustomExceptions.csproj" />
-  </ItemGroup>
-
 </Project>

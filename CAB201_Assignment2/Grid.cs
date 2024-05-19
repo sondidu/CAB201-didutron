@@ -1,8 +1,8 @@
-﻿namespace Didutron
+﻿using CustomExceptions;
+namespace Didutron
 {
     public class Grid
     {
-        private const char EMPTY_CELL_CHAR = '.';
         private readonly Dictionary<Coord, string> DIRECTIONS = new Dictionary<Coord, string>()
         {
             { new Coord(0, 1), "north" },
@@ -12,6 +12,12 @@
         };
         private readonly List<Obstacle> obstacles;
         private readonly Dictionary<Coord, char> memo;
+
+        private const char EMPTY_CELL_CHAR = '.';
+        private const string INVALID_COORD_MSG = "Coordinates are not valid integers.";
+        private const string INVALID_MAP_LENGTH_MSG = "Width and height must be valid positive integers.";
+        private const string INVALID_AGENT_COORD_MSG = "Agent coordinates are not valid integers.";
+        private const string INVALID_OBJECTIVE_COORD_MSG = "Objective coordinates are not valid integers.";
 
         public Grid()
         {
@@ -69,8 +75,14 @@
 
         public void Check(string[] args)
         {
-            int targetX = int.Parse(args[0]);
-            int targetY = int.Parse(args[1]);
+            string strTargetX = args[0];
+            string strTargetY = args[1];
+
+            if (!int.TryParse(strTargetX, out int targetX) || !int.TryParse(strTargetY, out int targetY))
+            {
+                throw new IntArgumentException(INVALID_COORD_MSG);
+            }
+
             Check(targetX, targetY);
         }
 
@@ -93,10 +105,20 @@
 
         public void Map(string[] args)
         {
-            int leftBorderX = int.Parse(args[0]);
-            int bottomBorderY = int.Parse(args[1]);
-            int width = int.Parse(args[2]);
-            int height = int.Parse(args[3]);
+            string strLeftBorderX = args[0];
+            string strbottomBorderY = args[1];
+            string strWidth = args[2];
+            string strHeight = args[3];
+
+            if (!int.TryParse(strLeftBorderX, out int leftBorderX) || !int.TryParse(strbottomBorderY, out int bottomBorderY))
+            {
+                throw new IntArgumentException(INVALID_COORD_MSG);
+            }
+
+            if (!int.TryParse(strWidth, out int width) || !int.TryParse(strHeight, out int height))
+            {
+                throw new IntArgumentException(INVALID_MAP_LENGTH_MSG);
+            }
 
             Map(leftBorderX, bottomBorderY, width, height);
         }
@@ -156,10 +178,20 @@
 
         public void Path(string[] args)
         {
-            int startX = int.Parse(args[0]);
-            int startY = int.Parse(args[1]);
-            int endX = int.Parse(args[2]);
-            int endY = int.Parse(args[3]);
+            string strStartX = args[0];
+            string strStartY = args[1];
+            string strEndX = args[2];
+            string strEndY = args[3]; 
+
+            if (!int.TryParse(strStartX, out int startX) || !int.TryParse(strStartY, out int startY))
+            {
+                throw new IntArgumentException(INVALID_AGENT_COORD_MSG);
+            }
+
+            if (!int.TryParse(strEndX, out int endX) || !int.TryParse(strEndY, out int endY))
+            {
+                throw new IntArgumentException(INVALID_OBJECTIVE_COORD_MSG);
+            }
 
             Path(startX, startY, endX, endY);
         }

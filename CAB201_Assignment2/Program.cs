@@ -6,18 +6,18 @@ namespace Didutron
         static void Main(string[] args)
         {
             var grid = new Grid();
-            var guardFactory = new GuardFactory(grid);
-            var fenceFactory = new FenceFactory(grid);
-            var sensorFactory = new SensorFactory(grid);
-            var cameraFactory = new CameraFactory(grid);
+            var guardFactory = new ObstacleFactory(grid, ObstacleType.Guard);
+            var fenceFactory = new ObstacleFactory(grid, ObstacleType.Fence);
+            var sensorFactory = new ObstacleFactory(grid, ObstacleType.Sensor);
+            var cameraFactory = new ObstacleFactory(grid, ObstacleType.Camera);
 
             var coordIntArg = new IntArg("Coordinates are not valid integers.");
             var fenceOrientationArg = new StringArg("Orientation must be 'east' or 'north'.", "east", "north");
             var sensorRangeArg = new DoubleArg("Range must be a valid positive number.", true);
-            var cameraDirectionArg = new StringArg("Direction must be 'north', 'south', 'east' or 'west'.", "north", "south", "east", "west");
+            var cameraDirectionArg = new StringArg("Direction must be 'north', 'south', 'east'or 'west'.", "north", "south", "east", "west");
             var mapLengthArg = new IntArg("Width and height must be valid positive integers.", true);
             var agentCoordIntArg = new IntArg("Agent coordinates are not valid integers.");
-            var objectiveCoordIntArg = new IntArg("Objective coordinates are not valid integers.");
+            var objectiveCoordIntArg = new IntArg("Objective coordinates are not valid intgers.");
             var fenceLengthArg = new IntArg("Length must be a valid integer greater than 0.", true);
 
             var commandsList = new Dictionary<string, Command>

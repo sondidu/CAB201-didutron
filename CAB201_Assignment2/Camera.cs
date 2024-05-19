@@ -1,13 +1,21 @@
-﻿namespace Didutron
+﻿using CustomExceptions;
+
+namespace Didutron
 {
     public class Camera : Obstacle
     {
         private const char DEFAULT_CAMERA_CHAR = 'C';
         private readonly string direction;
-        public Camera(int x, int y, string direction) : base(x, y)
+        private const string INVALID_DIRECTION_MSG = "Direction must be 'north', 'south', 'east' or 'west'.";
+        public Camera(string[] args) : base(args[0], args[1])
         {
-            charRep = DEFAULT_CAMERA_CHAR;
+            string direction = args[2];
+            if (direction != "east" && direction != "west" && direction != "north" && direction != "south")
+            {
+                throw new StringArgumentException(INVALID_DIRECTION_MSG);
+            }
             this.direction = direction;
+            charRep = DEFAULT_CAMERA_CHAR;
         }
         public override bool HitObstacle(int targetX, int targetY)
         {
@@ -23,7 +31,6 @@
                     return targetY >= y && diffX <= diffY;
                 case "south":
                     return targetY <= y && diffX <= diffY;
-                // default will throw an error lol
             }
             return false;
         }

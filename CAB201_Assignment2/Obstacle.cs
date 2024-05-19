@@ -1,12 +1,22 @@
-﻿namespace Didutron
+﻿using CustomExceptions;
+namespace Didutron
 {
     public abstract class Obstacle
     {
         public int x { get; private set; }
         public int y { get; private set; }
         public char charRep { get; protected set; }
-        public Obstacle(int x, int y)
+        private const string INVALID_COORD_MSG = "Coordinates are not valid integers.";
+        public Obstacle(string strX, string strY)
         {
+            if (!int.TryParse(strX, out int x))
+            {
+                throw new IntArgumentException(INVALID_COORD_MSG);
+            }
+            if (!int.TryParse(strY, out int y))
+            {
+                throw new IntArgumentException(INVALID_COORD_MSG);
+            }
             this.x = x;
             this.y = y;
         }
