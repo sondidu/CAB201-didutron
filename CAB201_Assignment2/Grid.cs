@@ -75,6 +75,8 @@ namespace Didutron
 
         public void Check(string[] args)
         {
+            ArgsCount.CheckArgsCount(args, ArgsCount.Check);
+
             string strTargetX = args[0];
             string strTargetY = args[1];
 
@@ -105,6 +107,8 @@ namespace Didutron
 
         public void Map(string[] args)
         {
+            ArgsCount.CheckArgsCount(args, ArgsCount.Map);
+
             string strLeftBorderX = args[0];
             string strbottomBorderY = args[1];
             string strWidth = args[2];
@@ -178,6 +182,8 @@ namespace Didutron
 
         public void Path(string[] args)
         {
+            ArgsCount.CheckArgsCount(args, ArgsCount.Map);
+
             string strStartX = args[0];
             string strStartY = args[1];
             string strEndX = args[2];
@@ -382,7 +388,7 @@ namespace Didutron
             var cameFromB = new Dictionary<Coord, Coord>();
 
             bool foundPath = false;
-            Coord coordIntersect = new Coord(0, 0);
+            Coord coordIntersect = new Coord();
             while (openA.Count > 0 && openB.Count > 0)
             {
                 var currentNodeA = openA.Dequeue();
@@ -463,7 +469,7 @@ namespace Didutron
             }
 
             // Constructing intersect to end
-            coordIterator = cameFromB[coordIntersect]; // skipping one because already accounted when constructing path to intersect
+            coordIterator = cameFromB[coordIntersect]; // skipping one because already accounted when constructing start to intersect
             while (coordIterator != end)
             {
                 path.Add(coordIterator);

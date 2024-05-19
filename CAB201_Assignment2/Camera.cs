@@ -9,6 +9,8 @@ namespace Didutron
         private const string INVALID_DIRECTION_MSG = "Direction must be 'north', 'south', 'east' or 'west'.";
         public Camera(string[] args) : base(args[0], args[1])
         {
+            ArgsCount.CheckArgsCount(args, ArgsCount.Camera);
+
             string direction = args[2];
             if (direction != "east" && direction != "west" && direction != "north" && direction != "south")
             {

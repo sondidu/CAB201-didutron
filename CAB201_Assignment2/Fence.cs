@@ -11,6 +11,8 @@ namespace Didutron
         private const string INVALID_LENGTH_MSG = "Length must be a valid integer greater than 0.";
         public Fence(string[] args) : base(args[0], args[1])
         {
+            ArgsCount.CheckArgsCount(args, ArgsCount.Fence);
+
             string orientation = args[2];
             if (orientation != "east" && orientation != "west")
             {

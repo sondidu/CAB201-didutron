@@ -4,6 +4,11 @@
     {
         public int x { get; private set; }
         public int y { get; private set; }
+        public Coord()
+        {
+            x = 0;
+            y = 0;
+        }
         public Coord(int x, int y)
         {
             this.x = x;

@@ -4,6 +4,8 @@
     {
         public static void Help(string[] args)
         {
+            ArgsCount.CheckArgsCount(args, ArgsCount.NoArgs);
+
             Console.WriteLine("Valid commands are:");
             Console.WriteLine("add guard <x> <y>: registers a guard obstacle");
             Console.WriteLine("add fence <x> <y> <orientation> <length>: registers a fence obstacle. Orientation must be 'east' or 'north'.");
@@ -24,7 +26,13 @@
 
         public static void Exit(string[] args)
         {
+            ArgsCount.CheckArgsCount(args, ArgsCount.NoArgs);
             Console.WriteLine("Thank you for using Didutron.");
+        }
+
+        public static void Exit()
+        {
+            Exit([]);
         }
     }
 }
