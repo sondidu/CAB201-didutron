@@ -3,7 +3,7 @@
     public class Guard : Obstacle
     {
         private const char DEFAULT_GUARD_CHAR = 'G';
-        public Guard(string[] args) : base(args[0], args[1])
+        public Guard(string[] args) : base(args)
         {
             ArgsCount.CheckArgsCount(args, ArgsCount.Guard);
             charRep = DEFAULT_GUARD_CHAR;

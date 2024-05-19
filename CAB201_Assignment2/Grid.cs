@@ -77,8 +77,11 @@ namespace Didutron
         {
             ArgsCount.CheckArgsCount(args, ArgsCount.Check);
 
-            string strTargetX = args[0];
-            string strTargetY = args[1];
+            const int TargetXIdx = 0;
+            const int TargetYIdx = 1;
+
+            string strTargetX = args[TargetXIdx];
+            string strTargetY = args[TargetYIdx];
 
             if (!int.TryParse(strTargetX, out int targetX) || !int.TryParse(strTargetY, out int targetY))
             {
@@ -109,10 +112,15 @@ namespace Didutron
         {
             ArgsCount.CheckArgsCount(args, ArgsCount.Map);
 
-            string strLeftBorderX = args[0];
-            string strbottomBorderY = args[1];
-            string strWidth = args[2];
-            string strHeight = args[3];
+            const int LeftBorderXIdx = 0;
+            const int BottomBorderYIdx = 1;
+            const int WidthIdx = 2;
+            const int HeightIdx = 3;
+
+            string strLeftBorderX = args[LeftBorderXIdx];
+            string strbottomBorderY = args[BottomBorderYIdx];
+            string strWidth = args[WidthIdx];
+            string strHeight = args[HeightIdx];
 
             if (!int.TryParse(strLeftBorderX, out int leftBorderX) || !int.TryParse(strbottomBorderY, out int bottomBorderY))
             {
@@ -184,10 +192,15 @@ namespace Didutron
         {
             ArgsCount.CheckArgsCount(args, ArgsCount.Map);
 
-            string strStartX = args[0];
-            string strStartY = args[1];
-            string strEndX = args[2];
-            string strEndY = args[3]; 
+            const int StartXIdx = 0;
+            const int StartYIdx = 1;
+            const int EndXIdx = 2;
+            const int EndYIdx = 3;
+
+            string strStartX = args[StartXIdx];
+            string strStartY = args[StartYIdx];
+            string strEndX = args[EndXIdx];
+            string strEndY = args[EndYIdx]; 
 
             if (!int.TryParse(strStartX, out int startX) || !int.TryParse(strStartY, out int startY))
             {
@@ -526,7 +539,7 @@ namespace Didutron
             {
                 return word;
             }
-            return Char.ToUpper(word[0]) + word.Substring(1);
+            return char.ToUpper(word[0]) + word.Substring(1);
         }
     }
 }

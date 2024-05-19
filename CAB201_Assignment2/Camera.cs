@@ -7,11 +7,13 @@ namespace Didutron
         private const char DEFAULT_CAMERA_CHAR = 'C';
         private readonly string direction;
         private const string INVALID_DIRECTION_MSG = "Direction must be 'north', 'south', 'east' or 'west'.";
-        public Camera(string[] args) : base(args[0], args[1])
+        public Camera(string[] args) : base(args)
         {
             ArgsCount.CheckArgsCount(args, ArgsCount.Camera);
 
-            string direction = args[2];
+            const int DirectionIdx = 2;
+
+            string direction = args[DirectionIdx];
             if (direction != "east" && direction != "west" && direction != "north" && direction != "south")
             {
                 throw new StringArgumentException(INVALID_DIRECTION_MSG);
@@ -23,18 +25,14 @@ namespace Didutron
         {
             int diffX = Math.Abs(targetX - x);
             int diffY = Math.Abs(targetY - y);
-            switch(direction)
+            return direction switch
             {
-                case "east":
-                    return targetX >= x && diffY <= diffX;
-                case "west":
-                    return targetX <= x && diffY <= diffX;
-                case "north":
-                    return targetY >= y && diffX <= diffY;
-                case "south":
-                    return targetY <= y && diffX <= diffY;
-            }
-            return false;
+                "east" => targetX >= x && diffY <= diffX,
+                "west" => targetX <= x && diffY <= diffX,
+                "north" => targetY >= y && diffX <= diffY,
+                "south" => targetY <= y && diffX <= diffY,
+                _ => false, // TODO: Remove this line and set the default case to the case to handle "south"
+            };
         }
     }
 }
