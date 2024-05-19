@@ -1,12 +1,12 @@
-﻿namespace Didutron
+﻿using ConstantsAndHelpers;
+namespace Didutron
 {
     public class Guard : Obstacle
     {
-        private const char DEFAULT_GUARD_CHAR = 'G';
         public Guard(string[] args) : base(args)
         {
-            ArgsCount.CheckArgsCount(args, ArgsCount.Guard);
-            charRep = DEFAULT_GUARD_CHAR;
+            IntConstants.CompareArgsCount(args, IntConstants.GuardArgsLength);
+            charRep = ObstacleChars.Guard;
         }
         public override bool HitObstacle(int targetX, int targetY)
         {

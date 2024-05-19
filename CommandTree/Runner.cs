@@ -32,11 +32,12 @@ namespace CommandTree
                 throw new InvalidCommandKeyException(commandIterator.InvalidCommandKeyMsg, parts[wordIdx], ex);
             }
 
+            // Copying the arguments to `args`
             int argCount = parts.Length - wordIdx;
             string[] args = new string[argCount];
             Array.Copy(parts, wordIdx, args, 0, argCount);
 
-            Action<string[]> execute = commandIterator.Execute ?? throw new Exception("Command has reached leaf, but no execute function is given.");
+            Action<string[]> execute = commandIterator.Execute;
 
             execute(args);
         }
@@ -51,12 +52,12 @@ namespace CommandTree
                 message = string.Format(ex.Message, ex.ParamName);
                 return false;
             }
-            catch(IndexOutOfRangeException ex)
+            catch(UnspecifiedCommandKeyException ex)
             {
                 message = ex.Message;
                 return false;
             }
-            catch(ArgumentException ex)
+            catch(ArgumentException ex) // TODO: think whether create a billion of custom exceptions e.g. CoordException, PositiveIntException ig, RadiusException, ...
             {
                 message = ex.Message;
                 return false;

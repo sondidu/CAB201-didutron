@@ -1,4 +1,5 @@
 ﻿using CustomExceptions;
+using ConstantsAndHelpers;
 namespace Didutron
 {
     public class Grid
@@ -12,39 +13,25 @@ namespace Didutron
         };
         private readonly List<Obstacle> obstacles;
         private readonly Dictionary<Coord, char> memo;
-
-        private const char EMPTY_CELL_CHAR = '.';
-        private const string INVALID_COORD_MSG = "Coordinates are not valid integers.";
-        private const string INVALID_MAP_LENGTH_MSG = "Width and height must be valid positive integers.";
-        private const string INVALID_AGENT_COORD_MSG = "Agent coordinates are not valid integers.";
-        private const string INVALID_OBJECTIVE_COORD_MSG = "Objective coordinates are not valid integers.";
-
         public Grid()
         {
             obstacles = new List<Obstacle>();
             memo = new Dictionary<Coord, char>();
         }
-
         public void AddObstacle(Obstacle obstacle)
         {
             obstacles.Add(obstacle);
         }
-
         public void Check(int targetX, int targetY)
         {
-            const string UNSAFE_COORD_PROMPT = "Agent your location is compromised. Abort mission";
-            const string NO_SAFE_DIRECTIONS_PROMPT = "You cannot safely move in any direction. Abort mission.";
-            const string SAFE_DIRECTIONS_PROMPT = "You can safely take any of the following directions:";
-
             // The location is not safe
             if (HitObstacleAt(targetX, targetY))
             {
-                Console.WriteLine(UNSAFE_COORD_PROMPT);
+                Console.WriteLine(ErrorMessages.UnsafeCoord);
                 return;
             }
 
-            // The location is safe.
-            // Now getting safe directions
+            // The location is safe, get safe directions
             var safeDirections = new List<string>();
             foreach (var direction in DIRECTIONS)
             {
@@ -61,41 +48,35 @@ namespace Didutron
             // There are no safe directions
             if (safeDirections.Count == 0)
             {
-                Console.WriteLine(NO_SAFE_DIRECTIONS_PROMPT);
+                Console.WriteLine(ErrorMessages.NoSafeDirections);
                 return;
             }
 
             // There is at least one safe direction
-            Console.WriteLine(SAFE_DIRECTIONS_PROMPT);
+            Console.WriteLine(SuccessMessages.SafeDirections);
             foreach (string direction in safeDirections)
             {
-                Console.WriteLine(CapitalizeFirstLetter(direction));
+                Console.WriteLine(SuccessMessages.CapitalizeFirstLetter(direction));
             }
         }
-
         public void Check(string[] args)
         {
-            ArgsCount.CheckArgsCount(args, ArgsCount.Check);
+            IntConstants.CompareArgsCount(args, IntConstants.CheckArgsLength);
 
-            const int TargetXIdx = 0;
-            const int TargetYIdx = 1;
-
-            string strTargetX = args[TargetXIdx];
-            string strTargetY = args[TargetYIdx];
+            string strTargetX = args[IntConstants.CheckTargetXIdx];
+            string strTargetY = args[IntConstants.CheckTargetYIdx];
 
             if (!int.TryParse(strTargetX, out int targetX) || !int.TryParse(strTargetY, out int targetY))
             {
-                throw new IntArgumentException(INVALID_COORD_MSG);
+                throw new IntArgumentException(ErrorMessages.InvalidCoord);
             }
 
             Check(targetX, targetY);
         }
-
         public void Map(int leftBorderX, int bottomBorderY, int width, int height)
         {
-            const string SELECTED_REGION_PROMPT = "Here is a map of obstacles in the selected region:";
+            Console.WriteLine(SuccessMessages.SelectedRegion);
 
-            Console.WriteLine(SELECTED_REGION_PROMPT);
             int topBorderY = bottomBorderY + height - 1;
             int rightBorderX = leftBorderX + width;
             for (int y = topBorderY; y >= bottomBorderY; y--)
@@ -107,52 +88,38 @@ namespace Didutron
                 Console.WriteLine();
             }
         }
-
         public void Map(string[] args)
         {
-            ArgsCount.CheckArgsCount(args, ArgsCount.Map);
+            IntConstants.CompareArgsCount(args, IntConstants.MapArgsLength);
 
-            const int LeftBorderXIdx = 0;
-            const int BottomBorderYIdx = 1;
-            const int WidthIdx = 2;
-            const int HeightIdx = 3;
-
-            string strLeftBorderX = args[LeftBorderXIdx];
-            string strbottomBorderY = args[BottomBorderYIdx];
-            string strWidth = args[WidthIdx];
-            string strHeight = args[HeightIdx];
+            string strLeftBorderX = args[IntConstants.MapLeftBorderXIdx];
+            string strbottomBorderY = args[IntConstants.MapBottomBorderYIdx];
+            string strWidth = args[IntConstants.MapWidthIdx];
+            string strHeight = args[IntConstants.MapHeightIdx];
 
             if (!int.TryParse(strLeftBorderX, out int leftBorderX) || !int.TryParse(strbottomBorderY, out int bottomBorderY))
             {
-                throw new IntArgumentException(INVALID_COORD_MSG);
+                throw new IntArgumentException(ErrorMessages.InvalidCoord);
             }
 
             if (!int.TryParse(strWidth, out int width) || !int.TryParse(strHeight, out int height))
             {
-                throw new IntArgumentException(INVALID_MAP_LENGTH_MSG);
+                throw new IntArgumentException(ErrorMessages.InvalidMapDimensions);
             }
 
             Map(leftBorderX, bottomBorderY, width, height);
         }
-
         public void Path(int startX, int startY, int endX, int endY)
         {
-            const string SAME_COORDS_PROMPT = "Agent, you are already at the objective.";
-            const string GOAL_OBSTRUCTED_PROMPT = "The objective is blocked by an obstacle and cannot be reached.";
-            const string NO_SAFE_PATH = "There is no safe path to the objective.";
-            const string THERE_IS_PATH = "The following path will take you to the objective:";
-            const string DIRECTION_AND_COUNT_PROMPT = "Head {0} for {1} {2}.";
-            const string UNIT = "klick";
-
             if (startX == endX && startY == endY)
             {
-                Console.WriteLine(SAME_COORDS_PROMPT);
+                Console.WriteLine(ErrorMessages.SameCoords);
                 return;
             }
 
             if (HitObstacleAt(endX, endY))
             {
-                Console.WriteLine(GOAL_OBSTRUCTED_PROMPT);
+                Console.WriteLine(ErrorMessages.GoalObstructed);
                 return;
             }
 
@@ -160,11 +127,12 @@ namespace Didutron
 
             if (path.Length == 0)
             {
-                Console.WriteLine(NO_SAFE_PATH);
+                Console.WriteLine(ErrorMessages.NoSafePath);
                 return;
             }
 
-            Console.WriteLine(THERE_IS_PATH);
+            Console.WriteLine(SuccessMessages.ThereIsSafePath);
+
             int repeatedDirectionsCount = 0;
             string prevDirection = "";
             for (int i = 1; i < path.Length; i++)
@@ -179,52 +147,43 @@ namespace Didutron
                 {
                     if (prevDirection != "")
                     {
-                        Console.WriteLine(DIRECTION_AND_COUNT_PROMPT, prevDirection, repeatedDirectionsCount, SingularOrPlural(UNIT, repeatedDirectionsCount));
+                        SuccessMessages.PrintMovement(direction, repeatedDirectionsCount);
                     }
                     prevDirection = direction;
                     repeatedDirectionsCount = 1;
                 }
             }
-            Console.WriteLine(DIRECTION_AND_COUNT_PROMPT, prevDirection, repeatedDirectionsCount, SingularOrPlural(UNIT, repeatedDirectionsCount));
+            SuccessMessages.PrintMovement(prevDirection, repeatedDirectionsCount);
         }
-
         public void Path(string[] args)
         {
-            ArgsCount.CheckArgsCount(args, ArgsCount.Map);
+            IntConstants.CompareArgsCount(args, IntConstants.PathArgsLength);
 
-            const int StartXIdx = 0;
-            const int StartYIdx = 1;
-            const int EndXIdx = 2;
-            const int EndYIdx = 3;
-
-            string strStartX = args[StartXIdx];
-            string strStartY = args[StartYIdx];
-            string strEndX = args[EndXIdx];
-            string strEndY = args[EndYIdx]; 
+            string strStartX = args[IntConstants.StartXIdx];
+            string strStartY = args[IntConstants.StartYIdx];
+            string strEndX = args[IntConstants.EndXIdx];
+            string strEndY = args[IntConstants.EndYIdx]; 
 
             if (!int.TryParse(strStartX, out int startX) || !int.TryParse(strStartY, out int startY))
             {
-                throw new IntArgumentException(INVALID_AGENT_COORD_MSG);
+                throw new IntArgumentException(ErrorMessages.InvalidAgentCoord);
             }
 
             if (!int.TryParse(strEndX, out int endX) || !int.TryParse(strEndY, out int endY))
             {
-                throw new IntArgumentException(INVALID_OBJECTIVE_COORD_MSG);
+                throw new IntArgumentException(ErrorMessages.InvalidObjectiveCoord);
             }
 
             Path(startX, startY, endX, endY);
         }
-
         private bool HitObstacleAt(int targetX, int targetY)
         {
-            return GetCharAt(targetX, targetY) != EMPTY_CELL_CHAR;
+            return GetCharAt(targetX, targetY) != ObstacleChars.Empty;
         }
-
         private bool HitObstacleAt(Coord target)
         {
             return HitObstacleAt(target.x, target.y);
         }
-
         private char GetCharAt(int targetX, int targetY)
         {
             Coord target = new Coord(targetX, targetY);
@@ -242,9 +201,9 @@ namespace Didutron
                     return obstacle.charRep;
                 }
             }
-            return EMPTY_CELL_CHAR;
+            return ObstacleChars.Empty;
         }
-
+        /*
         private Coord[] BfsFindPath(int startX, int startY, int endX, int endY)
         {
             return BfsFindPath(new Coord(startX, startY), new Coord(endX, endY));
@@ -370,12 +329,11 @@ namespace Didutron
         {
             return AStarFindPath(new Coord(startX, startY), new Coord(endX, endY));
         }
-
+        */
         private Coord[] AStarBidirectional(int startX, int startY, int endX, int endY)
         {
             return AStarBidirectional(new Coord(startX, startY), new Coord(endX, endY));
         }
-
         private Coord[] AStarBidirectional(Coord start, Coord end)
         {
             // These priority queues when enqueued will return the Coord with
@@ -492,14 +450,7 @@ namespace Didutron
 
             return path.ToArray();
         }
-
-        private void Expand(
-            Coord currentCoord,
-            Coord endCoord,
-            IEnumerable<Coord> directions,
-            ref PriorityQueue<Coord, Tuple<int, int>> openSet,
-            ref Dictionary<Coord, int> gCosts,
-            ref Dictionary<Coord, Coord> cameFrom)
+        private void Expand(Coord currentCoord, Coord endCoord, IEnumerable<Coord> directions, ref PriorityQueue<Coord, Tuple<int, int>> openSet, ref Dictionary<Coord, int> gCosts, ref Dictionary<Coord, Coord> cameFrom)
         {
             foreach (Coord direction in directions)
             {
@@ -510,6 +461,7 @@ namespace Didutron
                     continue;
                 }
 
+                // TODO: try using gCosts.TryGetValue() SOMEDAY
                 int tentativeGCost = gCosts[currentCoord] + 1;
                 if (!gCosts.ContainsKey(neighbour) || tentativeGCost < gCosts[neighbour])
                 {
@@ -522,24 +474,9 @@ namespace Didutron
                 }
             }
         }
-
         private static int ManhattanDistance(Coord start, Coord end)
         {
             return Math.Abs((start - end).x) + Math.Abs((start - end).y);
-        }
-
-        private static string SingularOrPlural(string word, int count)
-        {
-            return count == 1 ? word : word + 's';
-        }
-
-        private static string CapitalizeFirstLetter(string word)
-        {
-            if (word.Length == 0)
-            {
-                return word;
-            }
-            return char.ToUpper(word[0]) + word.Substring(1);
         }
     }
 }

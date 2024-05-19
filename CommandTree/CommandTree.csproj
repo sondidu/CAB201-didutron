@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ConstantsAndHelpers\ConstantsAndHelpers.csproj" />
     <ProjectReference Include="..\CustomExceptions\CustomExceptions.csproj" />
   </ItemGroup>
 

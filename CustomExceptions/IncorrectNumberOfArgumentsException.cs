@@ -1,5 +1,6 @@
 ﻿namespace CustomExceptions
 {
+    // TODO: think about whether inheriting ArgumentException is a wise choice
     public class IncorrectNumberOfArgumentsException : ArgumentException
     {
         public IncorrectNumberOfArgumentsException() : base() { }

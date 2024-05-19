@@ -23,7 +23,7 @@
             }
             return false;
         }
-        public static bool operator ==(Coord lhs, Coord rhs)
+        public static bool operator == (Coord lhs, Coord rhs)
         {
             return lhs.x == rhs.x && lhs.y == rhs.y;
         }
@@ -33,7 +33,7 @@
             return lhs.x != rhs.x || lhs.y != rhs.y;
         }
 
-        public static Coord operator +(Coord lhs, Coord rhs)
+        public static Coord operator + (Coord lhs, Coord rhs)
         {
             return new Coord(lhs.x + rhs.x, lhs.y + rhs.y);
         }

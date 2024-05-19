@@ -8,9 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommandTree\CommandTree.csproj" />
-    <ProjectReference Include="..\CommandValidation\CommandValidation.csproj" />
-    <ProjectReference Include="..\ConstantsAndHelpers\ConstantsAndHelpers.csproj" />
     <ProjectReference Include="..\CustomExceptions\CustomExceptions.csproj" />
   </ItemGroup>
 

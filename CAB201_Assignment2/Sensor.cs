@@ -1,25 +1,21 @@
 ﻿using CustomExceptions;
-
+using ConstantsAndHelpers;
 namespace Didutron
 {
     public class Sensor : Obstacle
     {
-        private const char DEFAULT_SENSOR_CHAR = 'S';
         private readonly double radius;
-        private const string INVALID_RADIUS_MSG = "Range must be a valid positive number.";
         public Sensor(string[] args) : base(args)
         {
-            ArgsCount.CheckArgsCount(args, ArgsCount.Sensor);
+            IntConstants.CompareArgsCount(args, IntConstants.SensorArgsLength);
 
-            const int RadiusIdx = 2;
-
-            string strRadius = args[RadiusIdx];
+            string strRadius = args[IntConstants.RadiusIdx];
             if (!double.TryParse(strRadius, out double radius) || radius <= 0)
             {
-                throw new DoubleArgumentException(INVALID_RADIUS_MSG);
+                throw new DoubleArgumentException(ErrorMessages.InvalidRadius);
             }
             this.radius = radius;
-            charRep = DEFAULT_SENSOR_CHAR;
+            charRep = ObstacleChars.Sensor;
         }
         public override bool HitObstacle(int targetX, int targetY)
         {
