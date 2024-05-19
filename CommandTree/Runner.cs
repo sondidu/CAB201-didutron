@@ -1,4 +1,5 @@
-﻿using CustomExceptions;
+﻿using ConstantsAndHelpers;
+using CustomExceptions;
 namespace CommandTree
 {
     public class Runner
@@ -41,8 +42,9 @@ namespace CommandTree
 
             execute(args);
         }
-        public bool TryRun(string input, out string message)
+        public bool TryRun(string? input, out string message)
         {
+            input ??= "";
             try
             {
                 Run(input);
@@ -55,6 +57,11 @@ namespace CommandTree
             catch(UnspecifiedCommandKeyException ex)
             {
                 message = ex.Message;
+                return false;
+            }
+            catch(IncorrectNumberOfArgumentsException)
+            {
+                message = ErrorMessages.IncorrectNumberOfArgs;
                 return false;
             }
             catch(ArgumentException ex) // TODO: think whether create a billion of custom exceptions e.g. CoordException, PositiveIntException ig, RadiusException, ...

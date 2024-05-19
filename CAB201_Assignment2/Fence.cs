@@ -11,7 +11,7 @@ namespace Didutron
             IntConstants.CompareArgsCount(args, IntConstants.FenceArgsLength);
 
             string orientation = args[IntConstants.OrientationIdx];
-            if (orientation != "east" && orientation != "west")
+            if (orientation != "east" && orientation != "north")
             {
                 throw new StringArgumentException(ErrorMessages.InvalidOrientation);
             }
@@ -23,7 +23,7 @@ namespace Didutron
             }
             this.orientation = orientation;
             this.length = length;
-            charRep = ObstacleChars.Fence;
+            CharRep = ObstacleConstants.FenceChar;
         }
 
         public override bool HitObstacle(int targetX, int targetY)

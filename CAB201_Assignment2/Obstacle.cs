@@ -6,7 +6,7 @@ namespace Didutron
     {
         public int x { get; private set; }
         public int y { get; private set; }
-        public char charRep { get; protected set; }
+        public char CharRep { get; protected set; }
         public Obstacle(string[] args)
         {
             string strX, strY;

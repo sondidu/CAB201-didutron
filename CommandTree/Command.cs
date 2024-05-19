@@ -11,11 +11,11 @@ namespace CommandTree
         {
             Execute = execute;
         }
-        public Command(Dictionary<string, Command> children, string unspecifiedKeyMsg = ErrorMessages.UnspecifiedCommandKey, string? invalidCommandKeyMsg = ErrorMessages.UnspecifiedCommandKey)
+        public Command(Dictionary<string, Command> children, string invalidCommandKeyMsg = ErrorMessages.InvalidCommandKey, string unspecifiedCommandKeyMsg = ErrorMessages.UnspecifiedCommandKey)
         {
             Children = children;
-            UnspecifiedCommandKeyMsg = unspecifiedKeyMsg;
             InvalidCommandKeyMsg = invalidCommandKeyMsg;
+            UnspecifiedCommandKeyMsg = unspecifiedCommandKeyMsg;
         }
     }
 }

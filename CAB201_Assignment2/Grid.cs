@@ -102,7 +102,7 @@ namespace Didutron
                 throw new IntArgumentException(ErrorMessages.InvalidCoord);
             }
 
-            if (!int.TryParse(strWidth, out int width) || !int.TryParse(strHeight, out int height))
+            if (!int.TryParse(strWidth, out int width) || !int.TryParse(strHeight, out int height) || width <= 0 || height <= 0)
             {
                 throw new IntArgumentException(ErrorMessages.InvalidMapDimensions);
             }
@@ -147,7 +147,7 @@ namespace Didutron
                 {
                     if (prevDirection != "")
                     {
-                        SuccessMessages.PrintMovement(direction, repeatedDirectionsCount);
+                        SuccessMessages.PrintMovement(prevDirection, repeatedDirectionsCount);
                     }
                     prevDirection = direction;
                     repeatedDirectionsCount = 1;
@@ -178,7 +178,7 @@ namespace Didutron
         }
         private bool HitObstacleAt(int targetX, int targetY)
         {
-            return GetCharAt(targetX, targetY) != ObstacleChars.Empty;
+            return GetCharAt(targetX, targetY) != ObstacleConstants.EmptyChar;
         }
         private bool HitObstacleAt(Coord target)
         {
@@ -197,11 +197,11 @@ namespace Didutron
             {
                 if (obstacle.HitObstacle(targetX, targetY))
                 {
-                    memo[target] = obstacle.charRep;
-                    return obstacle.charRep;
+                    memo[target] = obstacle.CharRep;
+                    return obstacle.CharRep;
                 }
             }
-            return ObstacleChars.Empty;
+            return ObstacleConstants.EmptyChar;
         }
         /*
         private Coord[] BfsFindPath(int startX, int startY, int endX, int endY)

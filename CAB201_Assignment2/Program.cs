@@ -1,4 +1,5 @@
-﻿using CommandValidation;
+﻿using CommandTree;
+using ConstantsAndHelpers;
 namespace Didutron
 {
     internal class Program
@@ -11,49 +12,40 @@ namespace Didutron
             var sensorFactory = new ObstacleFactory(grid, ObstacleType.Sensor);
             var cameraFactory = new ObstacleFactory(grid, ObstacleType.Camera);
 
-            var coordIntArg = new IntArg("Coordinates are not valid integers.");
-            var fenceOrientationArg = new StringArg("Orientation must be 'east' or 'north'.", "east", "north");
-            var sensorRangeArg = new DoubleArg("Range must be a valid positive number.", true);
-            var cameraDirectionArg = new StringArg("Direction must be 'north', 'south', 'east'or 'west'.", "north", "south", "east", "west");
-            var mapLengthArg = new IntArg("Width and height must be valid positive integers.", true);
-            var agentCoordIntArg = new IntArg("Agent coordinates are not valid integers.");
-            var objectiveCoordIntArg = new IntArg("Objective coordinates are not valid intgers.");
-            var fenceLengthArg = new IntArg("Length must be a valid integer greater than 0.", true);
-
-            var commandsList = new Dictionary<string, Command>
+            var commandChildren = new Dictionary<string, Command>
             {
-                { "add", new Command(new Dictionary<string, Command>
+                { CommandKey.Add, new Command(new Dictionary<string, Command>
                     {
-                        { "guard", new Command(guardFactory.AddToGrid, coordIntArg, coordIntArg) },
-                        { "fence", new Command(fenceFactory.AddToGrid, coordIntArg, coordIntArg, fenceOrientationArg, fenceLengthArg) },
-                        { "sensor", new Command(sensorFactory.AddToGrid, coordIntArg, coordIntArg, sensorRangeArg) },
-                        { "camera", new Command(cameraFactory.AddToGrid, coordIntArg, coordIntArg,  cameraDirectionArg) }
+                        { CommandKey.Guard, new Command(guardFactory.AddToGrid) },
+                        { CommandKey.Fence, new Command(fenceFactory.AddToGrid) },
+                        { CommandKey.Sensor, new Command(sensorFactory.AddToGrid) },
+                        { CommandKey.Camera, new Command(cameraFactory.AddToGrid) }
                     },
-                    invalidKeyErrorMsg: "Invalid obstacle type.",
-                    noKeyErrorMsg: "You need to specify an obstacle type.")
+                    invalidCommandKeyMsg: ErrorMessages.InvalidObstacle,
+                    unspecifiedCommandKeyMsg: ErrorMessages.UnspecifiedObstacle)
                 },
-                { "check", new Command(grid.Check, coordIntArg, coordIntArg) },
-                { "map", new Command(grid.Map, coordIntArg, coordIntArg, mapLengthArg, mapLengthArg) },
-                { "path", new Command(grid.Path, agentCoordIntArg, agentCoordIntArg, objectiveCoordIntArg, objectiveCoordIntArg) },
-                { "help", new Command(UserInterface.Help) },
-                { "exit", new Command(UserInterface.Exit) }
+                { CommandKey.Check, new Command(grid.Check) },
+                { CommandKey.Map, new Command(grid.Map) },
+                { CommandKey.Path, new Command(grid.Path) },
+                { CommandKey.Help, new Command(UserInterface.Help) },
+                { CommandKey.Exit, new Command(UserInterface.Exit) }
             };
-            var commands = new Command(commandsList, "Invalid option: {0}\nType 'help' to see a list of commands.");
-            var commandValidator = new CommandValidator(commands);
+            var rootCommand = new Command(commandChildren, ErrorMessages.InvalidOption);
+            var runner = new Runner(rootCommand);
 
-            Console.WriteLine("Welcome to Didutron Obstacle Avoidance System!");
-            Console.WriteLine();
-
+            UserInterface.Welcome();
             UserInterface.Help();
 
             string? input = "";
-            while (input != "exit")
+            while (input != CommandKey.Exit)
             {
-                Console.WriteLine("Enter command: ");
+                Console.WriteLine(SuccessMessages.AskForCommand);
                 input = Console.ReadLine();
-                input ??= "";
-                commandValidator.CurrentCommand = input;
-                commandValidator.TryRun();
+                bool noErrors = runner.TryRun(input, out string message);
+                if (!noErrors)
+                {
+                    Console.WriteLine(message);
+                }
             }
         }
     }

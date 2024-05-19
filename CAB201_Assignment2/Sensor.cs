@@ -15,7 +15,7 @@ namespace Didutron
                 throw new DoubleArgumentException(ErrorMessages.InvalidRadius);
             }
             this.radius = radius;
-            charRep = ObstacleChars.Sensor;
+            CharRep = ObstacleConstants.SensorChar;
         }
         public override bool HitObstacle(int targetX, int targetY)
         {

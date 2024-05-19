@@ -3,26 +3,27 @@ namespace Didutron
 {
     public class UserInterface
     {
+        public static void Help()
+        {
+            Help([]);
+        }
         public static void Help(string[] args)
         {
             IntConstants.CompareArgsCount(args, IntConstants.NoArgs);
             SuccessMessages.PrintHelp();
         }
-
-        public static void Help()
+        public static void Exit()
         {
-            Help([]);
+            Exit([]);
         }
-
         public static void Exit(string[] args)
         {
             IntConstants.CompareArgsCount(args, IntConstants.NoArgs);
             Console.WriteLine(SuccessMessages.OnExit);
         }
-
-        public static void Exit()
+        public static void Welcome()
         {
-            Exit([]);
+            Console.WriteLine(SuccessMessages.OnWelcome);
         }
     }
 }

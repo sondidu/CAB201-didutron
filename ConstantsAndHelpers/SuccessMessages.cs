@@ -2,12 +2,15 @@
 {
     public static class SuccessMessages
     {
+        public const string AddedObstacle = "Successfully added {0} obstacle.";
         public const string SafeDirections = "You can safely take any of the following directions:";
         public const string SelectedRegion = "Here is a map of obstacles in the selected region:";
         public const string ThereIsSafePath = "The following path will take you to the objective:";
         public const string HeadThisDirectionForSomeUnitFormat = "Head {0} for {1} {2}.";
         public const string Unit = "klick";
         public const string OnExit = "Thank you for using Didutron.";
+        public const string OnWelcome = "Welcome to Didutron Obstacle Avoidance System!\n";
+        public const string AskForCommand = "Enter command:";
 
         public static void PrintMovement(string direction, int count, string format=HeadThisDirectionForSomeUnitFormat, string unit=Unit)
         {

@@ -16,8 +16,12 @@
         public const string GoalObstructed = "The objective is blocked by an obstacle and cannot be reached.";
         public const string NoSafePath = "There is no safe path to the objective.";
 
+        public const string IncorrectNumberOfArgs = "Incorrect number of arguments.";
         public const string UnspecifiedCommandKey = "A command key must be specified.";
         public const string InvalidCommandKey = "Invalid command key: {0}.";
+        public const string InvalidObstacle = "Invalid obstacle type.";
+        public const string UnspecifiedObstacle = "You need to specify an obstacle type.";
+        public const string InvalidOption = "Invalid option: {0}\nType 'help' to see a list of commands.";
 
         public static void EmptyExecute(string[] args)
         {

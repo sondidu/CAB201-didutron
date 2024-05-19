@@ -6,7 +6,7 @@ namespace Didutron
         public Guard(string[] args) : base(args)
         {
             IntConstants.CompareArgsCount(args, IntConstants.GuardArgsLength);
-            charRep = ObstacleChars.Guard;
+            CharRep = ObstacleConstants.GuardChar;
         }
         public override bool HitObstacle(int targetX, int targetY)
         {
