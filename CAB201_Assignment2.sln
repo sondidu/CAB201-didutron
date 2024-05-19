@@ -5,8 +5,6 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Didutron", "CAB201_Assignment2\Didutron.csproj", "{8B4ED828-0834-4D7F-9DE9-9BED0CC9B242}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandValidation", "CommandValidation\CommandValidation.csproj", "{EACC1CB9-7307-4C25-B34A-0CB72A8DD332}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomExceptions", "CustomExceptions\CustomExceptions.csproj", "{2954CE20-F2F9-4E31-A407-CC5DE864BD12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandTree", "CommandTree\CommandTree.csproj", "{F18D1706-0478-437C-95AD-3646EF464DCE}"
@@ -23,10 +21,6 @@ Global
 		{8B4ED828-0834-4D7F-9DE9-9BED0CC9B242}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B4ED828-0834-4D7F-9DE9-9BED0CC9B242}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B4ED828-0834-4D7F-9DE9-9BED0CC9B242}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EACC1CB9-7307-4C25-B34A-0CB72A8DD332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EACC1CB9-7307-4C25-B34A-0CB72A8DD332}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EACC1CB9-7307-4C25-B34A-0CB72A8DD332}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EACC1CB9-7307-4C25-B34A-0CB72A8DD332}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2954CE20-F2F9-4E31-A407-CC5DE864BD12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2954CE20-F2F9-4E31-A407-CC5DE864BD12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2954CE20-F2F9-4E31-A407-CC5DE864BD12}.Release|Any CPU.ActiveCfg = Release|Any CPU
