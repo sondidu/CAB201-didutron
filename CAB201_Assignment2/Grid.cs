@@ -4,19 +4,20 @@ namespace Didutron
 {
     public class Grid
     {
-        private static readonly Dictionary<Coord, string> DIRECTIONS = new Dictionary<Coord, string>()
+        private static readonly Dictionary<Coord, string> DirectionNames = new Dictionary<Coord, string>()
         {
             { new Coord(0, 1), Direction.North },
             { new Coord(0, -1) , Direction.South },
             { new Coord(1, 0) , Direction.East },
             { new Coord(-1, 0) , Direction.West }
         };
+        private static readonly Coord[] DirectionCoords = [.. DirectionNames.Keys];
         private readonly List<Obstacle> obstacles;
         private readonly Dictionary<Coord, char> memo;
         public Grid()
         {
-            obstacles = new List<Obstacle>();
-            memo = new Dictionary<Coord, char>();
+            obstacles = [];
+            memo = [];
         }
         public void AddObstacle(Obstacle obstacle)
         {
@@ -33,7 +34,7 @@ namespace Didutron
 
             // The location is safe, get safe directions
             var safeDirections = new List<string>();
-            foreach (KeyValuePair<Coord, string> direction in DIRECTIONS)
+            foreach (KeyValuePair<Coord, string> direction in DirectionNames)
             {
                 string directionName = direction.Value;
                 int directionX = direction.Key.X;
@@ -111,12 +112,14 @@ namespace Didutron
         }
         public void Path(int startX, int startY, int endX, int endY)
         {
+            // Same coords
             if (startX == endX && startY == endY)
             {
                 Console.WriteLine(ErrorMessages.SameCoords);
                 return;
             }
 
+            // End is obstructed
             if (HitObstacleAt(endX, endY))
             {
                 Console.WriteLine(ErrorMessages.GoalObstructed);
@@ -125,30 +128,29 @@ namespace Didutron
 
             Coord[] path = AStarBidirectional(startX, startY, endX, endY);
 
+            // No safe path
             if (path.Length == 0)
             {
                 Console.WriteLine(ErrorMessages.NoSafePath);
                 return;
             }
 
+            // There is a safe path
             Console.WriteLine(SuccessMessages.ThereIsSafePath);
-
             int repeatedDirectionsCount = 0;
-            string prevDirection = "";
-            for (int i = 1; i < path.Length; i++) // TODO: try make this into i=0; i < path.Length
+            string prevDirection = DirectionNames[path[1] - path[0]];
+            for (int i = 1; i < path.Length; i++)
             {
                 Coord currentCoord = path[i];
                 Coord prevCoord = path[i - 1];
-                string direction = DIRECTIONS[currentCoord - prevCoord];
+                string direction = DirectionNames[currentCoord - prevCoord];
                 if (direction == prevDirection)
                 {
                     repeatedDirectionsCount++;
-                } else
+                }
+                else
                 {
-                    if (prevDirection != "")
-                    {
-                        SuccessMessages.PrintMovement(prevDirection, repeatedDirectionsCount);
-                    }
+                    SuccessMessages.PrintMovement(prevDirection, repeatedDirectionsCount);
                     prevDirection = direction;
                     repeatedDirectionsCount = 1;
                 }
@@ -242,20 +244,21 @@ namespace Didutron
                     break;
                 }
 
-                Expand(currentNodeA, end, DIRECTIONS.Keys, ref openA, ref gCostsA, ref cameFromA);
-                Expand(currentNodeB, start, DIRECTIONS.Keys, ref openB, ref gCostsB, ref cameFromB);
+                Expand(currentNodeA, end, ref openA, ref gCostsA, ref cameFromA);
+                Expand(currentNodeB, start, ref openB, ref gCostsB, ref cameFromB);
             }
 
             if (!foundPath) return [];
 
+            // Constructing the path
             List<Coord> startToIntersect = ConstructPath(coordIntersect, start, cameFromA, true); 
-            if (startToIntersect[^1] == end) return [..startToIntersect]; // This only happens when the path is only a single step
+            if (startToIntersect[^1] == end) return [.. startToIntersect]; // This only happens when the path is only a single step
             List<Coord> intersectToEnd = ConstructPath(cameFromB[coordIntersect], end, cameFromB);
-            return [..startToIntersect, ..intersectToEnd];
+            return [.. startToIntersect, .. intersectToEnd];
         }
-        private void Expand(Coord currentCoord, Coord endCoord, IEnumerable<Coord> directions, ref PriorityQueue<Coord, Tuple<int, int>> openSet, ref Dictionary<Coord, int> gCosts, ref Dictionary<Coord, Coord> cameFrom)
+        private void Expand(Coord currentCoord, Coord endCoord, ref PriorityQueue<Coord, Tuple<int, int>> openSet, ref Dictionary<Coord, int> gCosts, ref Dictionary<Coord, Coord> cameFrom)
         {
-            foreach (Coord direction in directions)
+            foreach (Coord direction in DirectionCoords)
             {
                 Coord neighbour = currentCoord + direction;
 
