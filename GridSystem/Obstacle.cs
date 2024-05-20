@@ -1,6 +1,6 @@
 ﻿using ConstantsAndHelpers;
 using CustomExceptions;
-namespace Didutron
+namespace GridSystem
 {
     public abstract class Obstacle
     {

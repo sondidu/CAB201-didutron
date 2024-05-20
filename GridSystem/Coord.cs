@@ -1,4 +1,4 @@
-﻿namespace Didutron
+﻿namespace GridSystem
 {
     public readonly struct Coord
     {

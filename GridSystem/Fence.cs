@@ -1,6 +1,6 @@
 ﻿using CustomExceptions;
 using ConstantsAndHelpers;
-namespace Didutron
+namespace GridSystem
 {
     public class Fence : Obstacle
     {

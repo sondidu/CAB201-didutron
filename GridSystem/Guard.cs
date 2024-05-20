@@ -1,5 +1,5 @@
 ﻿using ConstantsAndHelpers;
-namespace Didutron
+namespace GridSystem
 {
     public class Guard : Obstacle
     {

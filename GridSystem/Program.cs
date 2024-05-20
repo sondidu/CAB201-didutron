@@ -1,6 +1,6 @@
 ﻿using CommandTree;
 using ConstantsAndHelpers;
-namespace Didutron
+namespace GridSystem
 {
     internal class Program
     {
@@ -38,7 +38,7 @@ namespace Didutron
             var rootCommand = new Command(commandChildren, ErrorMessage.InvalidOption);
             var runner = new Runner(rootCommand);
 
-            // Start with a welcome message and show list of commands
+            // Start with welcome message and show list of commands
             UserInterface.Welcome();
             UserInterface.Help();
 
