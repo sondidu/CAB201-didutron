@@ -14,15 +14,17 @@ namespace Didutron
             { new Coord(-1, 0) , Direction.West }
         };
         private static readonly Coord[] DirectionCoords = [.. DirectionNames.Keys];
+
         public Grid()
         {
-            obstacles = [];
-            memo = [];
+            obstacles = []; memo = [];
         }
+
         public void AddObstacle(Obstacle obstacle)
         {
             obstacles.Add(obstacle);
         }
+
         public void Check(Coord target)
         {
             // The location is not safe
@@ -59,12 +61,13 @@ namespace Didutron
                 Console.WriteLine(SuccessMessage.CapitaliseFirstLetter(direction));
             }
         }
+
         public void Check(string[] args)
         {
-            IntConstant.CompareArgsCount(args, IntConstant.CheckArgsLength);
+            ArgumentHelper.CompareArgsCount(args, ArgumentHelper.CheckArgsLength);
 
-            string strTargetX = args[IntConstant.CheckTargetXIdx];
-            string strTargetY = args[IntConstant.CheckTargetYIdx];
+            string strTargetX = args[ArgumentHelper.CheckTargetXIdx];
+            string strTargetY = args[ArgumentHelper.CheckTargetYIdx];
 
             if (!int.TryParse(strTargetX, out int targetX) || !int.TryParse(strTargetY, out int targetY))
             {
@@ -74,6 +77,7 @@ namespace Didutron
             var target = new Coord(targetX, targetY);
             Check(target);
         }
+
         public void Map(Coord bottomLeft, Coord size)
         {
             Console.WriteLine(SuccessMessage.SelectedRegion);
@@ -88,14 +92,15 @@ namespace Didutron
                 Console.WriteLine();
             }
         }
+
         public void Map(string[] args)
         {
-            IntConstant.CompareArgsCount(args, IntConstant.MapArgsLength);
+            ArgumentHelper.CompareArgsCount(args, ArgumentHelper.MapArgsLength);
 
-            string strLeftX = args[IntConstant.MapLeftXIdx];
-            string strbottomY = args[IntConstant.MapBottomYIdx];
-            string strWidth = args[IntConstant.MapWidthIdx];
-            string strHeight = args[IntConstant.MapHeightIdx];
+            string strLeftX = args[ArgumentHelper.MapLeftXIdx];
+            string strbottomY = args[ArgumentHelper.MapBottomYIdx];
+            string strWidth = args[ArgumentHelper.MapWidthIdx];
+            string strHeight = args[ArgumentHelper.MapHeightIdx];
 
             if (!int.TryParse(strLeftX, out int leftBorderX) || !int.TryParse(strbottomY, out int bottomBorderY))
             {
@@ -111,6 +116,7 @@ namespace Didutron
             var size = new Coord(width, height);
             Map(bottomLeft, size);
         }
+
         public void Path(Coord start, Coord end)
         {
             // Same coords
@@ -158,14 +164,15 @@ namespace Didutron
             }
             SuccessMessage.PrintMovement(prevDirection, repeatedDirectionsCount);
         }
+
         public void Path(string[] args)
         {
-            IntConstant.CompareArgsCount(args, IntConstant.PathArgsLength);
+            ArgumentHelper.CompareArgsCount(args, ArgumentHelper.PathArgsLength);
 
-            string strStartX = args[IntConstant.StartXIdx];
-            string strStartY = args[IntConstant.StartYIdx];
-            string strEndX = args[IntConstant.EndXIdx];
-            string strEndY = args[IntConstant.EndYIdx]; 
+            string strStartX = args[ArgumentHelper.StartXIdx];
+            string strStartY = args[ArgumentHelper.StartYIdx];
+            string strEndX = args[ArgumentHelper.EndXIdx];
+            string strEndY = args[ArgumentHelper.EndYIdx];
 
             if (!int.TryParse(strStartX, out int startX) || !int.TryParse(strStartY, out int startY))
             {
@@ -181,10 +188,12 @@ namespace Didutron
             var end = new Coord(endX, endY);
             Path(start, end);
         }
+
         private bool HitObstacleAt(Coord target)
         {
             return GetCharAt(target) != ObstacleConstant.EmptyChar;
         }
+
         private char GetCharAt(Coord target)
         {
             if (memo.TryGetValue(target, out char charRep))
@@ -192,7 +201,7 @@ namespace Didutron
                 return charRep;
             }
 
-            foreach(Obstacle obstacle in obstacles)
+            foreach (Obstacle obstacle in obstacles)
             {
                 if (obstacle.HitObstacle(target))
                 {
@@ -202,6 +211,7 @@ namespace Didutron
             }
             return ObstacleConstant.EmptyChar;
         }
+
         private Coord[] AStarBidirectional(Coord start, Coord end)
         {
             // These priority queues when enqueued prioritises the lowest fCost and hCost
@@ -244,11 +254,12 @@ namespace Didutron
             if (!foundPath) return [];
 
             // Constructing the path
-            List<Coord> startToIntersect = ConstructPath(coordIntersect, start, cameFromA, true); 
+            List<Coord> startToIntersect = ConstructPath(coordIntersect, start, cameFromA, true);
             if (startToIntersect[^1] == end) return [.. startToIntersect]; // This only happens when the path is only a single step
             List<Coord> intersectToEnd = ConstructPath(cameFromB[coordIntersect], end, cameFromB);
             return [.. startToIntersect, .. intersectToEnd];
         }
+
         private void Expand(Coord currentCoord, Coord endCoord, ref PriorityQueue<Coord, Tuple<int, int>> openSet, ref Dictionary<Coord, int> gCosts, ref Dictionary<Coord, Coord> cameFrom)
         {
             foreach (Coord direction in DirectionCoords)
@@ -272,7 +283,8 @@ namespace Didutron
                 }
             }
         }
-        private static List<Coord> ConstructPath(Coord from, Coord to, Dictionary<Coord, Coord> cameFrom, bool reverse=false)
+
+        private static List<Coord> ConstructPath(Coord from, Coord to, Dictionary<Coord, Coord> cameFrom, bool reverse = false)
         {
             List<Coord> path = [];
             Coord coordIterator = from;
@@ -285,6 +297,7 @@ namespace Didutron
             if (reverse) path.Reverse();
             return path;
         }
+
         private static int ManhattanDistance(Coord start, Coord end)
         {
             return Math.Abs((start - end).x) + Math.Abs((start - end).y);

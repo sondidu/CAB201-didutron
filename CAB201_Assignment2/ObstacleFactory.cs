@@ -5,11 +5,13 @@ namespace Didutron
     {
         private readonly Grid grid;
         private readonly ObstacleType type;
+
         public ObstacleFactory(Grid grid, ObstacleType type)
         {
             this.grid = grid;
             this.type = type;
         }
+
         public void AddToGrid(string[] args)
         {
             Obstacle obstacle;

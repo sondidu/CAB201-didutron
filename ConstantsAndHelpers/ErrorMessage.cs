@@ -2,7 +2,7 @@
 {
     public static class ErrorMessage
     {
-        // Functionality messages
+        // Functionality-related messages
         public const string InvalidCoord = "Coordinates are not valid integers.";
         public const string InvalidOrientation = "Orientation must be 'east' or 'north'.";
         public const string InvalidLength = "Length must be a valid integer greater than 0.";
@@ -19,15 +19,18 @@
 
         // Command-related messages
         public const string IncorrectNumberOfArgs = "Incorrect number of arguments.";
-        public const string UnspecifiedCommandKey = "A command key must be specified.";
-        public const string InvalidCommandKey = "Invalid command key: {0}.";
         public const string InvalidObstacle = "Invalid obstacle type.";
         public const string UnspecifiedObstacle = "You need to specify an obstacle type.";
         public const string InvalidOption = "Invalid option: {0}\nType 'help' to see a list of commands.";
 
+        // Defualt Command-related
+        public const string DefaultInvalidNumberOfArgs = "Incorrect number of arguments. Expected {0} arguments but got {1}.";
+        public const string UnspecifiedCommandKey = "A command key must be specified.";
+        public const string InvalidCommandKey = "Invalid command key: {0}.";
+
         public static void EmptyExecute(string[] args)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Missing execute function at leaf command.");
         }
     }
 }

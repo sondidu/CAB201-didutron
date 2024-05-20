@@ -1,9 +1,10 @@
 ﻿using CustomExceptions;
 namespace ConstantsAndHelpers
 {
-    public static class IntConstant
+    public static class ArgumentHelper
     {
         // Argument lengths
+        public const int MinimumObstacleLength = 2;
         public const int GuardArgsLength = 2;
         public const int FenceArgsLength = 4;
         public const int SensorArgsLength = 3;
@@ -35,7 +36,7 @@ namespace ConstantsAndHelpers
         {
             if (args.Length != expectedCount)
             {
-                throw new IncorrectNumberOfArgumentsException();
+                throw new IncorrectNumberOfArgumentsException(ErrorMessage.IncorrectNumberOfArgs, expectedCount);
             }
         }
     }

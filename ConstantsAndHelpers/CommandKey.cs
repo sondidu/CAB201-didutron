@@ -3,10 +3,10 @@
     public static class CommandKey
     {
         public const string Add = "add";
-        public const string Guard = "guard";
-        public const string Fence = "fence";
-        public const string Sensor = "sensor";
-        public const string Camera = "camera";
+        public const string Guard = ObstacleConstant.GuardName;
+        public const string Fence = ObstacleConstant.FenceName;
+        public const string Sensor = ObstacleConstant.SensorName;
+        public const string Camera = ObstacleConstant.CameraName;
         public const string Check = "check";
         public const string Map = "map";
         public const string Path = "path";

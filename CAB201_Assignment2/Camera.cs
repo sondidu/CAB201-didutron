@@ -5,19 +5,19 @@ namespace Didutron
     public class Camera : Obstacle
     {
         private readonly string direction;
-        public Camera(string[] args) : base(args)
+        public Camera(string[] args) : base(args, ObstacleConstant.CameraChar)
         {
-            IntConstant.CompareArgsCount(args, IntConstant.CameraArgsLength);
+            ArgumentHelper.CompareArgsCount(args, ArgumentHelper.CameraArgsLength);
 
-            string direction = args[IntConstant.DirectionIdx];
+            string direction = args[ArgumentHelper.DirectionIdx];
             if (direction != Direction.East && direction != Direction.West && direction != Direction.North && direction != Direction.South)
             {
                 throw new StringArgumentException(ErrorMessage.InvalidDirection);
             }
 
             this.direction = direction;
-            CharRep = ObstacleConstant.CameraChar;
         }
+
         public override bool HitObstacle(Coord target)
         {
             int diffX = Math.Abs(target.x - pos.x);

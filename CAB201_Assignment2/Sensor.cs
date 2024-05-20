@@ -5,18 +5,17 @@ namespace Didutron
     public class Sensor : Obstacle
     {
         private readonly double radius;
-        public Sensor(string[] args) : base(args)
+        public Sensor(string[] args) : base(args, ObstacleConstant.SensorChar)
         {
-            IntConstant.CompareArgsCount(args, IntConstant.SensorArgsLength);
+            ArgumentHelper.CompareArgsCount(args, ArgumentHelper.SensorArgsLength);
 
-            string strRadius = args[IntConstant.RadiusIdx];
+            string strRadius = args[ArgumentHelper.RadiusIdx];
             if (!double.TryParse(strRadius, out double radius) || radius <= 0)
             {
                 throw new DoubleArgumentException(ErrorMessage.InvalidRadius);
             }
 
             this.radius = radius;
-            CharRep = ObstacleConstant.SensorChar;
         }
         public override bool HitObstacle(Coord target)
         {

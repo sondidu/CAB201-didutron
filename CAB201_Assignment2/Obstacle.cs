@@ -5,18 +5,19 @@ namespace Didutron
     public abstract class Obstacle
     {
         protected readonly Coord pos;
-        public char CharRep { get; protected set; }
-        public Obstacle(string[] args)
+        public readonly char CharRep;
+
+        public Obstacle(string[] args, char charRep)
         {
             string strX, strY;
             try
             {
-                strX = args[IntConstant.CoordXIdx];
-                strY = args[IntConstant.CoordYIdx];
+                strX = args[ArgumentHelper.CoordXIdx];
+                strY = args[ArgumentHelper.CoordYIdx];
             }
             catch (IndexOutOfRangeException ex)
             {
-                throw new IncorrectNumberOfArgumentsException(ex.Message, ex);
+                throw new IncorrectNumberOfArgumentsException(ex.Message, ArgumentHelper.MinimumObstacleLength, ex);
             }
 
             if (!int.TryParse(strX, out int x) || !int.TryParse(strY, out int y))
@@ -25,7 +26,9 @@ namespace Didutron
             }
 
             pos = new Coord(x, y);
+            CharRep = charRep;
         }
+
         public abstract bool HitObstacle(Coord target); 
     }
 }

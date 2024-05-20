@@ -3,11 +3,11 @@ namespace Didutron
 {
     public class Guard : Obstacle
     {
-        public Guard(string[] args) : base(args)
+        public Guard(string[] args) : base(args, ObstacleConstant.GuardChar)
         {
-            IntConstant.CompareArgsCount(args, IntConstant.GuardArgsLength);
-            CharRep = ObstacleConstant.GuardChar;
+            ArgumentHelper.CompareArgsCount(args, ArgumentHelper.GuardArgsLength);
         }
+
         public override bool HitObstacle(Coord target)
         {
             return target == pos;

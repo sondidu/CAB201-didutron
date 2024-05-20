@@ -1,11 +1,18 @@
 ﻿namespace CustomExceptions
 {
-    // TODO: think about whether inheriting ArgumentException is a wise choice
-    public class IncorrectNumberOfArgumentsException : ArgumentException
+    public class IncorrectNumberOfArgumentsException : Exception
     {
-        public IncorrectNumberOfArgumentsException() : base() { }
-        public IncorrectNumberOfArgumentsException(string? message) : base(message) { }
-        public IncorrectNumberOfArgumentsException(string? message, Exception? innerException) : base(message, innerException) { }
-        public IncorrectNumberOfArgumentsException(string? message, string? paramName, Exception? innerException) : base(message, paramName, innerException) { }
+        public int ExpectedNumberOfArguments { get; private set; }
+
+        public IncorrectNumberOfArgumentsException(string? message, int expectedNumberOfArguments) : this(message, expectedNumberOfArguments, null) { }
+
+        public IncorrectNumberOfArgumentsException(string? message, int expectedNumberOfArguments, Exception? innerException) : base(message, innerException)
+        {
+            if (expectedNumberOfArguments < 0)
+            {
+                throw new ArgumentException("Expected number of arguments should be a positive number.");
+            }
+            ExpectedNumberOfArguments = expectedNumberOfArguments;
+        }
     }
 }

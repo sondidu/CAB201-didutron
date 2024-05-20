@@ -6,17 +6,18 @@ namespace Didutron
     {
         private readonly string orientation;
         private readonly int length;
-        public Fence(string[] args) : base(args)
-        {
-            IntConstant.CompareArgsCount(args, IntConstant.FenceArgsLength);
 
-            string orientation = args[IntConstant.OrientationIdx];
+        public Fence(string[] args) : base(args, ObstacleConstant.FenceChar)
+        {
+            ArgumentHelper.CompareArgsCount(args, ArgumentHelper.FenceArgsLength);
+
+            string orientation = args[ArgumentHelper.OrientationIdx];
             if (orientation != Direction.East && orientation != Direction.North)
             {
                 throw new StringArgumentException(ErrorMessage.InvalidOrientation);
             }
 
-            string strLength = args[IntConstant.LengthIdx];
+            string strLength = args[ArgumentHelper.LengthIdx];
             if (!int.TryParse(strLength, out int length) || length <= 0)
             {
                 throw new IntArgumentException(ErrorMessage.InvalidLength);
@@ -24,7 +25,6 @@ namespace Didutron
 
             this.orientation = orientation;
             this.length = length;
-            CharRep = ObstacleConstant.FenceChar;
         }
 
         public override bool HitObstacle(Coord target)

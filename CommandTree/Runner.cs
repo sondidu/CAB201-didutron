@@ -5,10 +5,12 @@ namespace CommandTree
     public class Runner
     {
         private readonly Command Commands;
+
         public Runner(Command commands)
         {
             Commands = commands;
         }
+
         private void Run(string input)
         {
             Command commandIterator = Commands;
@@ -17,6 +19,7 @@ namespace CommandTree
 
             try
             {
+                // Iterate command tree until it reaches a command leaf
                 while (commandIterator.Children != null)
                 {
                     string currentArg = parts[wordIdx];
@@ -39,19 +42,19 @@ namespace CommandTree
             Array.Copy(parts, wordIdx, args, 0, argCount);
 
             Action<string[]> execute = commandIterator.Execute;
-
             execute(args);
         }
+
         public bool TryRun(string? input, out string message)
         {
-            input ??= ""; // If null, convert to empty string
+            input ??= "";
             try
             {
                 Run(input);
             }
             catch(InvalidCommandKeyException ex)
             {
-                message = string.Format(ex.Message, ex.ParamName);
+                message = string.Format(ex.Message, ex.ActualValue);
                 return false;
             }
             catch(UnspecifiedCommandKeyException ex)
@@ -78,6 +81,5 @@ namespace CommandTree
             message = "";
             return true;
         }
-
     }
 }
