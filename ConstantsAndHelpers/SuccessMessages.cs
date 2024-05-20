@@ -21,7 +21,7 @@
             Console.WriteLine(format, direction, count, unit);
         }
 
-        public static string CapitalizeFirstLetter(string word)
+        public static string CapitaliseFirstLetter(string word)
         {
             if (word.Length == 0)
             {

@@ -2,55 +2,50 @@
 {
     public struct Coord
     {
-        public int x { get; private set; }
-        public int y { get; private set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
         public Coord()
         {
-            x = 0;
-            y = 0;
+            X = 0;
+            Y = 0;
         }
         public Coord(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is Coord)
             {
                 var other = (Coord)obj;
-                return x == other.x && y == other.y;
+                return X == other.X && Y == other.Y;
             }
             return false;
         }
         public static bool operator == (Coord lhs, Coord rhs)
         {
-            return lhs.x == rhs.x && lhs.y == rhs.y;
+            return lhs.X == rhs.X && lhs.Y == rhs.Y;
         }
-
         public static bool operator != (Coord lhs, Coord rhs)
         {
-            return lhs.x != rhs.x || lhs.y != rhs.y;
+            return lhs.X != rhs.X || lhs.Y != rhs.Y;
         }
-
         public static Coord operator + (Coord lhs, Coord rhs)
         {
-            return new Coord(lhs.x + rhs.x, lhs.y + rhs.y);
+            return new Coord(lhs.X + rhs.X, lhs.Y + rhs.Y);
         }
-
         public static Coord operator - (Coord lhs, Coord rhs)
         {
-            return new Coord(lhs.x - rhs.x, lhs.y - rhs.y);
+            return new Coord(lhs.X - rhs.X, lhs.Y - rhs.Y);
         }
-
         public override string ToString()
         {
-            return $"({x}, {y})";
+            return $"({X}, {Y})";
         }
-
         public override int GetHashCode()
         {
-            return x.GetHashCode() ^ y.GetHashCode();
+            return X.GetHashCode() ^ Y.GetHashCode();
         }
     }
 }

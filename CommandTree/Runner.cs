@@ -33,7 +33,7 @@ namespace CommandTree
                 throw new InvalidCommandKeyException(commandIterator.InvalidCommandKeyMsg, parts[wordIdx], ex);
             }
 
-            // Copying the arguments in parts to args
+            // Copying the arguments in `parts` to `args`
             int argCount = parts.Length - wordIdx;
             string[] args = new string[argCount];
             Array.Copy(parts, wordIdx, args, 0, argCount);

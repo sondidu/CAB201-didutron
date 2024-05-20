@@ -11,7 +11,7 @@ namespace Didutron
             IntConstants.CompareArgsCount(args, IntConstants.FenceArgsLength);
 
             string orientation = args[IntConstants.OrientationIdx];
-            if (orientation != "east" && orientation != "north")
+            if (orientation != Direction.East && orientation != Direction.North)
             {
                 throw new StringArgumentException(ErrorMessages.InvalidOrientation);
             }

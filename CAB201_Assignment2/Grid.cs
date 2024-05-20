@@ -6,10 +6,10 @@ namespace Didutron
     {
         private readonly Dictionary<Coord, string> DIRECTIONS = new Dictionary<Coord, string>()
         {
-            { new Coord(0, 1), "north" },
-            { new Coord(0, -1) , "south" },
-            { new Coord(1, 0) , "east" },
-            { new Coord(-1, 0) , "west" }
+            { new Coord(0, 1), Direction.North },
+            { new Coord(0, -1) , Direction.South },
+            { new Coord(1, 0) , Direction.East },
+            { new Coord(-1, 0) , Direction.West }
         };
         private readonly List<Obstacle> obstacles;
         private readonly Dictionary<Coord, char> memo;
@@ -36,8 +36,8 @@ namespace Didutron
             foreach (var direction in DIRECTIONS)
             {
                 string directionName = direction.Value;
-                int directionX = direction.Key.x;
-                int directionY = direction.Key.y;
+                int directionX = direction.Key.X;
+                int directionY = direction.Key.Y;
 
                 if (!HitObstacleAt(targetX + directionX, targetY + directionY))
                 {
@@ -56,7 +56,7 @@ namespace Didutron
             Console.WriteLine(SuccessMessages.SafeDirections);
             foreach (string direction in safeDirections)
             {
-                Console.WriteLine(SuccessMessages.CapitalizeFirstLetter(direction));
+                Console.WriteLine(SuccessMessages.CapitaliseFirstLetter(direction));
             }
         }
         public void Check(string[] args)
@@ -135,7 +135,7 @@ namespace Didutron
 
             int repeatedDirectionsCount = 0;
             string prevDirection = "";
-            for (int i = 1; i < path.Length; i++)
+            for (int i = 1; i < path.Length; i++) // TODO: try make this into i=0; i < path.Length
             {
                 Coord currentCoord = path[i];
                 Coord prevCoord = path[i - 1];
@@ -182,11 +182,11 @@ namespace Didutron
         }
         private bool HitObstacleAt(Coord target)
         {
-            return HitObstacleAt(target.x, target.y);
+            return HitObstacleAt(target.X, target.Y);
         }
         private char GetCharAt(int targetX, int targetY)
         {
-            Coord target = new Coord(targetX, targetY);
+            var target = new Coord(targetX, targetY);
 
             if (memo.TryGetValue(target, out char charRep))
             {
@@ -232,7 +232,7 @@ namespace Didutron
             var cameFromB = new Dictionary<Coord, Coord>();
 
             bool foundPath = false;
-            Coord coordIntersect = new Coord();
+            var coordIntersect = new Coord();
             while (openA.Count > 0 && openB.Count > 0)
             {
                 var currentNodeA = openA.Dequeue();
@@ -245,54 +245,13 @@ namespace Didutron
                     break;
                 }
 
-                // Expand on A
-                //foreach (Coord direction in DIRECTIONS.Keys)
-                //{
-                //    Coord neiCoordA = currentNodeA + direction;
-                //    if (HitObstacleAt(neiCoordA))
-                //    {
-                //        continue;
-                //    }
-
-                //    int tentativeGCost = gCostsA[currentNodeA] + 1;
-                //    if (!gCostsA.ContainsKey(neiCoordA) || tentativeGCost < gCostsA[neiCoordA])
-                //    {
-                //        gCostsA[neiCoordA] = tentativeGCost;
-                //        int hCost = ManhattanDistance(neiCoordA, end);
-                //        int fCost = tentativeGCost + hCost;
-
-                //        openA.Enqueue(neiCoordA, new Tuple<int, int>(fCost, hCost));
-                //        cameFromA[neiCoordA] = currentNodeA;
-                //    }
-                //}
                 Expand(currentNodeA, end, DIRECTIONS.Keys, ref openA, ref gCostsA, ref cameFromA);
-
-                // Expand on B
-                //foreach (Coord direction in DIRECTIONS.Keys)
-                //{
-                //    Coord neiCoordB = currentNodeB + direction;
-                //    if (HitObstacleAt(neiCoordB))
-                //    {
-                //        continue;
-                //    }
-
-                //    int tentativeGCost = gCostsB[currentNodeB] + 1;
-                //    if (!gCostsB.ContainsKey(neiCoordB) || tentativeGCost < gCostsB[neiCoordB])
-                //    {
-                //        gCostsB[neiCoordB] = tentativeGCost;
-                //        int hCost = ManhattanDistance(neiCoordB, start);
-                //        int fCost = tentativeGCost + hCost;
-
-                //        openB.Enqueue(neiCoordB, new Tuple<int, int>(fCost, hCost));
-                //        cameFromB[neiCoordB] = currentNodeB;
-                //    }
-                //}
                 Expand(currentNodeB, start, DIRECTIONS.Keys, ref openB, ref gCostsB, ref cameFromB);
             }
 
             if (!foundPath)
             {
-                return Array.Empty<Coord>();
+                return [];
             }
 
             // Constructing start to intersect
@@ -307,11 +266,12 @@ namespace Didutron
             path.Reverse();
 
             // This only happens when the path is only one step
-            if (path[path.Count - 1] == end)
+            if (path[^1] == end)
             {
-                return path.ToArray();
+                return [.. path];
             }
 
+            // TODO: Abstract constructing a path from point to point
             // Constructing intersect to end
             coordIterator = cameFromB[coordIntersect]; // skipping one because already accounted when constructing start to intersect
             while (coordIterator != end)
@@ -321,7 +281,7 @@ namespace Didutron
             }
             path.Add(end);
 
-            return path.ToArray();
+            return [.. path];
         }
         private void Expand(Coord currentCoord, Coord endCoord, IEnumerable<Coord> directions, ref PriorityQueue<Coord, Tuple<int, int>> openSet, ref Dictionary<Coord, int> gCosts, ref Dictionary<Coord, Coord> cameFrom)
         {
@@ -336,7 +296,8 @@ namespace Didutron
 
                 // TODO: try using gCosts.TryGetValue() SOMEDAY
                 int tentativeGCost = gCosts[currentCoord] + 1;
-                if (!gCosts.ContainsKey(neighbour) || tentativeGCost < gCosts[neighbour])
+                //if (!gCosts.ContainsKey(neighbour) || tentativeGCost < gCosts[neighbour])
+                if (gCosts.TryGetValue(neighbour, out int gCostNeighbour) || tentativeGCost < gCostNeighbour)
                 {
                     gCosts[neighbour] = tentativeGCost;
                     int hCost = ManhattanDistance(neighbour, endCoord);
@@ -349,7 +310,7 @@ namespace Didutron
         }
         private static int ManhattanDistance(Coord start, Coord end)
         {
-            return Math.Abs((start - end).x) + Math.Abs((start - end).y);
+            return Math.Abs((start - end).X) + Math.Abs((start - end).Y);
         }
     }
 }

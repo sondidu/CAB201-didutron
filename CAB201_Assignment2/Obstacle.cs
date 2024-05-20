@@ -28,6 +28,9 @@ namespace Didutron
             this.x = x;
             this.y = y;
         }
-        public abstract bool HitObstacle(int targetX, int targetY);
+        public virtual bool HitObstacle(int targetX, int targetY)
+        {
+            return targetX == x && targetY == y;
+        }
     }
 }

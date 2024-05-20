@@ -8,9 +8,5 @@ namespace Didutron
             IntConstants.CompareArgsCount(args, IntConstants.GuardArgsLength);
             CharRep = ObstacleConstants.GuardChar;
         }
-        public override bool HitObstacle(int targetX, int targetY)
-        {
-            return x == targetX && y == targetY;
-        }
     }
 }

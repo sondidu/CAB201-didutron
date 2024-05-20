@@ -10,7 +10,7 @@ namespace Didutron
             IntConstants.CompareArgsCount(args, IntConstants.CameraArgsLength);
 
             string direction = args[IntConstants.DirectionIdx];
-            if (direction != "east" && direction != "west" && direction != "north" && direction != "south")
+            if (direction != Direction.East && direction != Direction.West && direction != Direction.North && direction != Direction.South)
             {
                 throw new StringArgumentException(ErrorMessages.InvalidDirection);
             }
@@ -24,9 +24,9 @@ namespace Didutron
             int diffY = Math.Abs(targetY - y);
             return direction switch
             {
-                "east" => targetX >= x && diffY <= diffX,
-                "west" => targetX <= x && diffY <= diffX,
-                "north" => targetY >= y && diffX <= diffY,
+                Direction.East => targetX >= x && diffY <= diffX,
+                Direction.West => targetX <= x && diffY <= diffX,
+                Direction.North => targetY >= y && diffX <= diffY,
                 _ => targetY <= y && diffX <= diffY, // "south" is implied
             };
         }
