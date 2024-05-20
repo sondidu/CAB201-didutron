@@ -1,6 +1,6 @@
 ﻿namespace ConstantsAndHelpers
 {
-    public static class ObstacleConstants
+    public static class ObstacleConstant
     {
         public const char GuardChar = 'G';
         public const char FenceChar = 'F';

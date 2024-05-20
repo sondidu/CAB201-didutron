@@ -1,7 +1,7 @@
 ﻿using CustomExceptions;
 namespace ConstantsAndHelpers
 {
-    public static class IntConstants
+    public static class IntConstant
     {
         // Argument lengths
         public const int GuardArgsLength = 2;
@@ -22,8 +22,8 @@ namespace ConstantsAndHelpers
         public const int DirectionIdx = 2;
         public const int CheckTargetXIdx = 0;
         public const int CheckTargetYIdx = 1;
-        public const int MapLeftBorderXIdx = 0;
-        public const int MapBottomBorderYIdx = 1;
+        public const int MapLeftXIdx = 0;
+        public const int MapBottomYIdx = 1;
         public const int MapWidthIdx = 2;
         public const int MapHeightIdx = 3;
         public const int StartXIdx = 0;

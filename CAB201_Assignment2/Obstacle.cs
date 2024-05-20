@@ -4,16 +4,15 @@ namespace Didutron
 {
     public abstract class Obstacle
     {
-        public int x { get; private set; }
-        public int y { get; private set; }
+        protected readonly Coord pos;
         public char CharRep { get; protected set; }
         public Obstacle(string[] args)
         {
             string strX, strY;
             try
             {
-                strX = args[IntConstants.CoordXIdx];
-                strY = args[IntConstants.CoordYIdx];
+                strX = args[IntConstant.CoordXIdx];
+                strY = args[IntConstant.CoordYIdx];
             }
             catch (IndexOutOfRangeException ex)
             {
@@ -22,15 +21,11 @@ namespace Didutron
 
             if (!int.TryParse(strX, out int x) || !int.TryParse(strY, out int y))
             {
-                throw new IntArgumentException(ErrorMessages.InvalidCoord);
+                throw new IntArgumentException(ErrorMessage.InvalidCoord);
             }
 
-            this.x = x;
-            this.y = y;
+            pos = new Coord(x, y);
         }
-        public virtual bool HitObstacle(int targetX, int targetY)
-        {
-            return targetX == x && targetY == y;
-        }
+        public abstract bool HitObstacle(Coord target); 
     }
 }

@@ -61,7 +61,7 @@ namespace CommandTree
             }
             catch(IncorrectNumberOfArgumentsException)
             {
-                message = ErrorMessages.IncorrectNumberOfArgs;
+                message = ErrorMessage.IncorrectNumberOfArgs;
                 return false;
             }
             catch(ArgumentException ex)

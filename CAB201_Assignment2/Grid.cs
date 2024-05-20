@@ -4,6 +4,8 @@ namespace Didutron
 {
     public class Grid
     {
+        private readonly List<Obstacle> obstacles;
+        private readonly Dictionary<Coord, char> memo;
         private static readonly Dictionary<Coord, string> DirectionNames = new Dictionary<Coord, string>()
         {
             { new Coord(0, 1), Direction.North },
@@ -12,8 +14,6 @@ namespace Didutron
             { new Coord(-1, 0) , Direction.West }
         };
         private static readonly Coord[] DirectionCoords = [.. DirectionNames.Keys];
-        private readonly List<Obstacle> obstacles;
-        private readonly Dictionary<Coord, char> memo;
         public Grid()
         {
             obstacles = [];
@@ -23,12 +23,12 @@ namespace Didutron
         {
             obstacles.Add(obstacle);
         }
-        public void Check(int targetX, int targetY)
+        public void Check(Coord target)
         {
             // The location is not safe
-            if (HitObstacleAt(targetX, targetY))
+            if (HitObstacleAt(target))
             {
-                Console.WriteLine(ErrorMessages.UnsafeCoord);
+                Console.WriteLine(ErrorMessage.UnsafeCoord);
                 return;
             }
 
@@ -36,11 +36,10 @@ namespace Didutron
             var safeDirections = new List<string>();
             foreach (KeyValuePair<Coord, string> direction in DirectionNames)
             {
+                Coord directionCoord = direction.Key;
                 string directionName = direction.Value;
-                int directionX = direction.Key.X;
-                int directionY = direction.Key.Y;
 
-                if (!HitObstacleAt(targetX + directionX, targetY + directionY))
+                if (!HitObstacleAt(target + directionCoord))
                 {
                     safeDirections.Add(directionName);
                 }
@@ -49,94 +48,96 @@ namespace Didutron
             // There are no safe directions
             if (safeDirections.Count == 0)
             {
-                Console.WriteLine(ErrorMessages.NoSafeDirections);
+                Console.WriteLine(ErrorMessage.NoSafeDirections);
                 return;
             }
 
             // There is at least one safe direction
-            Console.WriteLine(SuccessMessages.SafeDirections);
+            Console.WriteLine(SuccessMessage.SafeDirections);
             foreach (string direction in safeDirections)
             {
-                Console.WriteLine(SuccessMessages.CapitaliseFirstLetter(direction));
+                Console.WriteLine(SuccessMessage.CapitaliseFirstLetter(direction));
             }
         }
         public void Check(string[] args)
         {
-            IntConstants.CompareArgsCount(args, IntConstants.CheckArgsLength);
+            IntConstant.CompareArgsCount(args, IntConstant.CheckArgsLength);
 
-            string strTargetX = args[IntConstants.CheckTargetXIdx];
-            string strTargetY = args[IntConstants.CheckTargetYIdx];
+            string strTargetX = args[IntConstant.CheckTargetXIdx];
+            string strTargetY = args[IntConstant.CheckTargetYIdx];
 
             if (!int.TryParse(strTargetX, out int targetX) || !int.TryParse(strTargetY, out int targetY))
             {
-                throw new IntArgumentException(ErrorMessages.InvalidCoord);
+                throw new IntArgumentException(ErrorMessage.InvalidCoord);
             }
 
-            Check(targetX, targetY);
+            var target = new Coord(targetX, targetY);
+            Check(target);
         }
-        public void Map(int leftBorderX, int bottomBorderY, int width, int height)
+        public void Map(Coord bottomLeft, Coord size)
         {
-            Console.WriteLine(SuccessMessages.SelectedRegion);
+            Console.WriteLine(SuccessMessage.SelectedRegion);
 
-            int topBorderY = bottomBorderY + height - 1;
-            int rightBorderX = leftBorderX + width;
-            for (int y = topBorderY; y >= bottomBorderY; y--)
+            Coord topRight = bottomLeft + size;
+            for (int y = topRight.y - 1; y >= bottomLeft.y; y--)
             {
-                for (int x = leftBorderX; x < rightBorderX; x++)
+                for (int x = bottomLeft.x; x < topRight.x; x++)
                 {
-                    Console.Write(GetCharAt(x, y));
+                    Console.Write(GetCharAt(new Coord(x, y)));
                 }
                 Console.WriteLine();
             }
         }
         public void Map(string[] args)
         {
-            IntConstants.CompareArgsCount(args, IntConstants.MapArgsLength);
+            IntConstant.CompareArgsCount(args, IntConstant.MapArgsLength);
 
-            string strLeftBorderX = args[IntConstants.MapLeftBorderXIdx];
-            string strbottomBorderY = args[IntConstants.MapBottomBorderYIdx];
-            string strWidth = args[IntConstants.MapWidthIdx];
-            string strHeight = args[IntConstants.MapHeightIdx];
+            string strLeftX = args[IntConstant.MapLeftXIdx];
+            string strbottomY = args[IntConstant.MapBottomYIdx];
+            string strWidth = args[IntConstant.MapWidthIdx];
+            string strHeight = args[IntConstant.MapHeightIdx];
 
-            if (!int.TryParse(strLeftBorderX, out int leftBorderX) || !int.TryParse(strbottomBorderY, out int bottomBorderY))
+            if (!int.TryParse(strLeftX, out int leftBorderX) || !int.TryParse(strbottomY, out int bottomBorderY))
             {
-                throw new IntArgumentException(ErrorMessages.InvalidCoord);
+                throw new IntArgumentException(ErrorMessage.InvalidCoord);
             }
 
             if (!int.TryParse(strWidth, out int width) || !int.TryParse(strHeight, out int height) || width <= 0 || height <= 0)
             {
-                throw new IntArgumentException(ErrorMessages.InvalidMapDimensions);
+                throw new IntArgumentException(ErrorMessage.InvalidMapDimensions);
             }
 
-            Map(leftBorderX, bottomBorderY, width, height);
+            var bottomLeft = new Coord(leftBorderX, bottomBorderY);
+            var size = new Coord(width, height);
+            Map(bottomLeft, size);
         }
-        public void Path(int startX, int startY, int endX, int endY)
+        public void Path(Coord start, Coord end)
         {
             // Same coords
-            if (startX == endX && startY == endY)
+            if (start == end)
             {
-                Console.WriteLine(ErrorMessages.SameCoords);
+                Console.WriteLine(ErrorMessage.SameCoords);
                 return;
             }
 
             // End is obstructed
-            if (HitObstacleAt(endX, endY))
+            if (HitObstacleAt(end))
             {
-                Console.WriteLine(ErrorMessages.GoalObstructed);
+                Console.WriteLine(ErrorMessage.GoalObstructed);
                 return;
             }
 
-            Coord[] path = AStarBidirectional(startX, startY, endX, endY);
+            Coord[] path = AStarBidirectional(start, end);
 
             // No safe path
             if (path.Length == 0)
             {
-                Console.WriteLine(ErrorMessages.NoSafePath);
+                Console.WriteLine(ErrorMessage.NoSafePath);
                 return;
             }
 
             // There is a safe path
-            Console.WriteLine(SuccessMessages.ThereIsSafePath);
+            Console.WriteLine(SuccessMessage.ThereIsSafePath);
             int repeatedDirectionsCount = 0;
             string prevDirection = DirectionNames[path[1] - path[0]];
             for (int i = 1; i < path.Length; i++)
@@ -150,46 +151,42 @@ namespace Didutron
                 }
                 else
                 {
-                    SuccessMessages.PrintMovement(prevDirection, repeatedDirectionsCount);
+                    SuccessMessage.PrintMovement(prevDirection, repeatedDirectionsCount);
                     prevDirection = direction;
                     repeatedDirectionsCount = 1;
                 }
             }
-            SuccessMessages.PrintMovement(prevDirection, repeatedDirectionsCount);
+            SuccessMessage.PrintMovement(prevDirection, repeatedDirectionsCount);
         }
         public void Path(string[] args)
         {
-            IntConstants.CompareArgsCount(args, IntConstants.PathArgsLength);
+            IntConstant.CompareArgsCount(args, IntConstant.PathArgsLength);
 
-            string strStartX = args[IntConstants.StartXIdx];
-            string strStartY = args[IntConstants.StartYIdx];
-            string strEndX = args[IntConstants.EndXIdx];
-            string strEndY = args[IntConstants.EndYIdx]; 
+            string strStartX = args[IntConstant.StartXIdx];
+            string strStartY = args[IntConstant.StartYIdx];
+            string strEndX = args[IntConstant.EndXIdx];
+            string strEndY = args[IntConstant.EndYIdx]; 
 
             if (!int.TryParse(strStartX, out int startX) || !int.TryParse(strStartY, out int startY))
             {
-                throw new IntArgumentException(ErrorMessages.InvalidAgentCoord);
+                throw new IntArgumentException(ErrorMessage.InvalidAgentCoord);
             }
 
             if (!int.TryParse(strEndX, out int endX) || !int.TryParse(strEndY, out int endY))
             {
-                throw new IntArgumentException(ErrorMessages.InvalidObjectiveCoord);
+                throw new IntArgumentException(ErrorMessage.InvalidObjectiveCoord);
             }
 
-            Path(startX, startY, endX, endY);
-        }
-        private bool HitObstacleAt(int targetX, int targetY)
-        {
-            return GetCharAt(targetX, targetY) != ObstacleConstants.EmptyChar;
+            var start = new Coord(startX, startY);
+            var end = new Coord(endX, endY);
+            Path(start, end);
         }
         private bool HitObstacleAt(Coord target)
         {
-            return HitObstacleAt(target.X, target.Y);
+            return GetCharAt(target) != ObstacleConstant.EmptyChar;
         }
-        private char GetCharAt(int targetX, int targetY)
+        private char GetCharAt(Coord target)
         {
-            var target = new Coord(targetX, targetY);
-
             if (memo.TryGetValue(target, out char charRep))
             {
                 return charRep;
@@ -197,17 +194,13 @@ namespace Didutron
 
             foreach(Obstacle obstacle in obstacles)
             {
-                if (obstacle.HitObstacle(targetX, targetY))
+                if (obstacle.HitObstacle(target))
                 {
                     memo[target] = obstacle.CharRep;
                     return obstacle.CharRep;
                 }
             }
-            return ObstacleConstants.EmptyChar;
-        }
-        private Coord[] AStarBidirectional(int startX, int startY, int endX, int endY)
-        {
-            return AStarBidirectional(new Coord(startX, startY), new Coord(endX, endY));
+            return ObstacleConstant.EmptyChar;
         }
         private Coord[] AStarBidirectional(Coord start, Coord end)
         {
@@ -294,7 +287,7 @@ namespace Didutron
         }
         private static int ManhattanDistance(Coord start, Coord end)
         {
-            return Math.Abs((start - end).X) + Math.Abs((start - end).Y);
+            return Math.Abs((start - end).x) + Math.Abs((start - end).y);
         }
     }
 }

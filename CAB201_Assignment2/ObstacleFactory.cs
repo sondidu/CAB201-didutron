@@ -18,25 +18,25 @@ namespace Didutron
             {
                 case ObstacleType.Guard:
                     obstacle = new Guard(args);
-                    obstacleName = ObstacleConstants.GuardName;
+                    obstacleName = ObstacleConstant.GuardName;
                     break;
                 case ObstacleType.Fence:
                     obstacle = new Fence(args);
-                    obstacleName = ObstacleConstants.FenceName;
+                    obstacleName = ObstacleConstant.FenceName;
                     break;
                 case ObstacleType.Sensor:
                     obstacle = new Sensor(args);
-                    obstacleName = ObstacleConstants.SensorName;
+                    obstacleName = ObstacleConstant.SensorName;
                     break;
                 case ObstacleType.Camera:
                     obstacle = new Camera(args);
-                    obstacleName = ObstacleConstants.CameraName;
+                    obstacleName = ObstacleConstant.CameraName;
                     break;
                 default:
-                    throw new Exception(ErrorMessages.InvalidObstacle);
+                    throw new Exception(ErrorMessage.InvalidObstacle);
             }
             grid.AddObstacle(obstacle);
-            Console.WriteLine(SuccessMessages.AddedObstacle, obstacleName);
+            Console.WriteLine(SuccessMessage.AddedObstacle, obstacleName);
         }
     }
 }

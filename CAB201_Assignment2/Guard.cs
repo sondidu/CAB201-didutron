@@ -5,8 +5,12 @@ namespace Didutron
     {
         public Guard(string[] args) : base(args)
         {
-            IntConstants.CompareArgsCount(args, IntConstants.GuardArgsLength);
-            CharRep = ObstacleConstants.GuardChar;
+            IntConstant.CompareArgsCount(args, IntConstant.GuardArgsLength);
+            CharRep = ObstacleConstant.GuardChar;
+        }
+        public override bool HitObstacle(Coord target)
+        {
+            return target == pos;
         }
     }
 }

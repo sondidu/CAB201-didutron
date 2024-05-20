@@ -7,27 +7,27 @@ namespace Didutron
         private readonly string direction;
         public Camera(string[] args) : base(args)
         {
-            IntConstants.CompareArgsCount(args, IntConstants.CameraArgsLength);
+            IntConstant.CompareArgsCount(args, IntConstant.CameraArgsLength);
 
-            string direction = args[IntConstants.DirectionIdx];
+            string direction = args[IntConstant.DirectionIdx];
             if (direction != Direction.East && direction != Direction.West && direction != Direction.North && direction != Direction.South)
             {
-                throw new StringArgumentException(ErrorMessages.InvalidDirection);
+                throw new StringArgumentException(ErrorMessage.InvalidDirection);
             }
 
             this.direction = direction;
-            CharRep = ObstacleConstants.CameraChar;
+            CharRep = ObstacleConstant.CameraChar;
         }
-        public override bool HitObstacle(int targetX, int targetY)
+        public override bool HitObstacle(Coord target)
         {
-            int diffX = Math.Abs(targetX - x);
-            int diffY = Math.Abs(targetY - y);
+            int diffX = Math.Abs(target.x - pos.x);
+            int diffY = Math.Abs(target.y - pos.y);
             return direction switch
             {
-                Direction.East => targetX >= x && diffY <= diffX,
-                Direction.West => targetX <= x && diffY <= diffX,
-                Direction.North => targetY >= y && diffX <= diffY,
-                _ => targetY <= y && diffX <= diffY, // "south" is implied
+                Direction.East => target.x >= pos.x && diffY <= diffX,
+                Direction.West => target.x <= pos.x && diffY <= diffX,
+                Direction.North => target.y >= pos.y && diffX <= diffY,
+                _ => target.y <= pos.y && diffX <= diffY, // South is implied
             };
         }
     }

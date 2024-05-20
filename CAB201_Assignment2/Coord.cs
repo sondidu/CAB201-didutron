@@ -1,51 +1,46 @@
 ﻿namespace Didutron
 {
-    public struct Coord
+    public readonly struct Coord
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public readonly int x;
+        public readonly int y;
         public Coord()
         {
-            X = 0;
-            Y = 0;
+            x = 0;
+            y = 0;
         }
         public Coord(int x, int y)
         {
-            X = x;
-            Y = y;
-        }
-        public override readonly bool Equals(object obj)
-        {
-            if (obj is Coord)
-            {
-                var other = (Coord)obj;
-                return X == other.X && Y == other.Y;
-            }
-            return false;
+            this.x = x;
+            this.y = y;
         }
         public static bool operator == (Coord lhs, Coord rhs)
         {
-            return lhs.X == rhs.X && lhs.Y == rhs.Y;
+            return lhs.x == rhs.x && lhs.y == rhs.y;
         }
         public static bool operator != (Coord lhs, Coord rhs)
         {
-            return lhs.X != rhs.X || lhs.Y != rhs.Y;
+            return lhs.x != rhs.x || lhs.y != rhs.y;
         }
         public static Coord operator + (Coord lhs, Coord rhs)
         {
-            return new Coord(lhs.X + rhs.X, lhs.Y + rhs.Y);
+            return new Coord(lhs.x + rhs.x, lhs.y + rhs.y);
         }
         public static Coord operator - (Coord lhs, Coord rhs)
         {
-            return new Coord(lhs.X - rhs.X, lhs.Y - rhs.Y);
+            return new Coord(lhs.x - rhs.x, lhs.y - rhs.y);
         }
-        public override string ToString()
+        public override readonly string ToString()
         {
-            return $"({X}, {Y})";
+            return $"({x}, {y})";
         }
-        public override int GetHashCode()
+        public override readonly bool Equals(object? obj)
         {
-            return X.GetHashCode() ^ Y.GetHashCode();
+            return obj is Coord other && x == other.x && y == other.y;
+        }
+        public override readonly int GetHashCode()
+        {
+            return HashCode.Combine(x, y);
         }
     }
 }

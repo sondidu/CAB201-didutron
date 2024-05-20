@@ -7,21 +7,21 @@ namespace Didutron
         private readonly double radius;
         public Sensor(string[] args) : base(args)
         {
-            IntConstants.CompareArgsCount(args, IntConstants.SensorArgsLength);
+            IntConstant.CompareArgsCount(args, IntConstant.SensorArgsLength);
 
-            string strRadius = args[IntConstants.RadiusIdx];
+            string strRadius = args[IntConstant.RadiusIdx];
             if (!double.TryParse(strRadius, out double radius) || radius <= 0)
             {
-                throw new DoubleArgumentException(ErrorMessages.InvalidRadius);
+                throw new DoubleArgumentException(ErrorMessage.InvalidRadius);
             }
 
             this.radius = radius;
-            CharRep = ObstacleConstants.SensorChar;
+            CharRep = ObstacleConstant.SensorChar;
         }
-        public override bool HitObstacle(int targetX, int targetY)
+        public override bool HitObstacle(Coord target)
         {
-            double diffX = targetX - x;
-            double diffY = targetY - y;
+            double diffX = target.x - pos.x;
+            double diffY = target.y - pos.y;
             return diffX * diffX + diffY * diffY < radius * radius; 
         }
     }

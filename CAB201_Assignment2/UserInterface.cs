@@ -9,8 +9,8 @@ namespace Didutron
         }
         public static void Help(string[] args)
         {
-            IntConstants.CompareArgsCount(args, IntConstants.NoArgs);
-            SuccessMessages.PrintHelp();
+            IntConstant.CompareArgsCount(args, IntConstant.NoArgs);
+            SuccessMessage.PrintHelp();
         }
         public static void Exit()
         {
@@ -18,12 +18,12 @@ namespace Didutron
         }
         public static void Exit(string[] args)
         {
-            IntConstants.CompareArgsCount(args, IntConstants.NoArgs);
-            Console.WriteLine(SuccessMessages.OnExit);
+            IntConstant.CompareArgsCount(args, IntConstant.NoArgs);
+            Console.WriteLine(SuccessMessage.Exit);
         }
         public static void Welcome()
         {
-            Console.WriteLine(SuccessMessages.OnWelcome);
+            Console.WriteLine(SuccessMessage.Welcome);
         }
     }
 }

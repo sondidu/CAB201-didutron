@@ -21,8 +21,8 @@ namespace Didutron
                         { CommandKey.Sensor, new Command(sensorFactory.AddToGrid) },
                         { CommandKey.Camera, new Command(cameraFactory.AddToGrid) }
                     },
-                    invalidCommandKeyMsg: ErrorMessages.InvalidObstacle,
-                    unspecifiedCommandKeyMsg: ErrorMessages.UnspecifiedObstacle)
+                    invalidCommandKeyMsg: ErrorMessage.InvalidObstacle,
+                    unspecifiedCommandKeyMsg: ErrorMessage.UnspecifiedObstacle)
                 },
                 { CommandKey.Check, new Command(grid.Check) },
                 { CommandKey.Map, new Command(grid.Map) },
@@ -30,7 +30,7 @@ namespace Didutron
                 { CommandKey.Help, new Command(UserInterface.Help) },
                 { CommandKey.Exit, new Command(UserInterface.Exit) }
             };
-            var rootCommand = new Command(commandChildren, ErrorMessages.InvalidOption);
+            var rootCommand = new Command(commandChildren, ErrorMessage.InvalidOption);
             var runner = new Runner(rootCommand);
 
             // Start by welcoming and show list of commands
@@ -40,7 +40,7 @@ namespace Didutron
             string? input = "";
             while (input != CommandKey.Exit)
             {
-                Console.WriteLine(SuccessMessages.AskForCommand);
+                Console.WriteLine(SuccessMessage.AskForCommand);
                 input = Console.ReadLine();
                 bool noErrors = runner.TryRun(input, out string message);
                 if (!noErrors)

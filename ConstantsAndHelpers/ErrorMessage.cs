@@ -1,6 +1,6 @@
 ﻿namespace ConstantsAndHelpers
 {
-    public static class ErrorMessages
+    public static class ErrorMessage
     {
         // Functionality messages
         public const string InvalidCoord = "Coordinates are not valid integers.";
@@ -27,7 +27,7 @@
 
         public static void EmptyExecute(string[] args)
         {
-            Console.WriteLine("No execute function was given.");
+            throw new NotImplementedException();
         }
     }
 }
