@@ -4,7 +4,7 @@ namespace Didutron
 {
     public class Grid
     {
-        private readonly Dictionary<Coord, string> DIRECTIONS = new Dictionary<Coord, string>()
+        private static readonly Dictionary<Coord, string> DIRECTIONS = new Dictionary<Coord, string>()
         {
             { new Coord(0, 1), Direction.North },
             { new Coord(0, -1) , Direction.South },
@@ -33,7 +33,7 @@ namespace Didutron
 
             // The location is safe, get safe directions
             var safeDirections = new List<string>();
-            foreach (var direction in DIRECTIONS)
+            foreach (KeyValuePair<Coord, string> direction in DIRECTIONS)
             {
                 string directionName = direction.Value;
                 int directionX = direction.Key.X;
@@ -209,9 +209,7 @@ namespace Didutron
         }
         private Coord[] AStarBidirectional(Coord start, Coord end)
         {
-            // These priority queues when enqueued will return the Coord with
-            // the lowest fCost, if there are multiple Coords with the same fCost,
-            // then return the one with the lowest hCost
+            // These priority queues when enqueued prioritises the lowest fCost and hCost
             var openA = new PriorityQueue<Coord, Tuple<int, int>>();
             var openB = new PriorityQueue<Coord, Tuple<int, int>>();
 
@@ -224,7 +222,6 @@ namespace Didutron
 
             var gCostsA = new Dictionary<Coord, int>();
             var gCostsB = new Dictionary<Coord, int>();
-
             gCostsA[start] = 0;
             gCostsB[end] = 0;
 
@@ -249,39 +246,12 @@ namespace Didutron
                 Expand(currentNodeB, start, DIRECTIONS.Keys, ref openB, ref gCostsB, ref cameFromB);
             }
 
-            if (!foundPath)
-            {
-                return [];
-            }
+            if (!foundPath) return [];
 
-            // Constructing start to intersect
-            var path = new List<Coord>();
-            Coord coordIterator = coordIntersect;
-            while (coordIterator != start)
-            {
-                path.Add(coordIterator);
-                coordIterator = cameFromA[coordIterator];
-            }
-            path.Add(start);
-            path.Reverse();
-
-            // This only happens when the path is only one step
-            if (path[^1] == end)
-            {
-                return [.. path];
-            }
-
-            // TODO: Abstract constructing a path from point to point
-            // Constructing intersect to end
-            coordIterator = cameFromB[coordIntersect]; // skipping one because already accounted when constructing start to intersect
-            while (coordIterator != end)
-            {
-                path.Add(coordIterator);
-                coordIterator = cameFromB[coordIterator];
-            }
-            path.Add(end);
-
-            return [.. path];
+            List<Coord> startToIntersect = ConstructPath(coordIntersect, start, cameFromA, true); 
+            if (startToIntersect[^1] == end) return [..startToIntersect]; // This only happens when the path is only a single step
+            List<Coord> intersectToEnd = ConstructPath(cameFromB[coordIntersect], end, cameFromB);
+            return [..startToIntersect, ..intersectToEnd];
         }
         private void Expand(Coord currentCoord, Coord endCoord, IEnumerable<Coord> directions, ref PriorityQueue<Coord, Tuple<int, int>> openSet, ref Dictionary<Coord, int> gCosts, ref Dictionary<Coord, Coord> cameFrom)
         {
@@ -294,10 +264,8 @@ namespace Didutron
                     continue;
                 }
 
-                // TODO: try using gCosts.TryGetValue() SOMEDAY
                 int tentativeGCost = gCosts[currentCoord] + 1;
-                //if (!gCosts.ContainsKey(neighbour) || tentativeGCost < gCosts[neighbour])
-                if (gCosts.TryGetValue(neighbour, out int gCostNeighbour) || tentativeGCost < gCostNeighbour)
+                if (!gCosts.TryGetValue(neighbour, out int gCostNeighbour) || tentativeGCost < gCostNeighbour)
                 {
                     gCosts[neighbour] = tentativeGCost;
                     int hCost = ManhattanDistance(neighbour, endCoord);
@@ -307,6 +275,19 @@ namespace Didutron
                     cameFrom[neighbour] = currentCoord;
                 }
             }
+        }
+        private static List<Coord> ConstructPath(Coord from, Coord to, Dictionary<Coord, Coord> cameFrom, bool reverse=false)
+        {
+            List<Coord> path = [];
+            Coord coordIterator = from;
+            while (coordIterator != to)
+            {
+                path.Add(coordIterator);
+                coordIterator = cameFrom[coordIterator];
+            }
+            path.Add(to);
+            if (reverse) path.Reverse();
+            return path;
         }
         private static int ManhattanDistance(Coord start, Coord end)
         {

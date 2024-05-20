@@ -29,7 +29,7 @@ namespace Didutron
 
         public override bool HitObstacle(int targetX, int targetY)
         {
-            if (orientation == "east")
+            if (orientation == Direction.East)
             {
                 return targetX >= x && targetX < x + length && targetY == y;
             }
