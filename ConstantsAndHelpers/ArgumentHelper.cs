@@ -1,6 +1,9 @@
 ﻿using CustomExceptions;
 namespace ConstantsAndHelpers
 {
+    /// <summary>
+    /// Provides constants and helper methods for handling arguments.
+    /// </summary>
     public static class ArgumentHelper
     {
         // Argument lengths
@@ -32,6 +35,12 @@ namespace ConstantsAndHelpers
         public const int EndXIdx = 2;
         public const int EndYIdx = 3;
 
+        /// <summary>
+        /// Determines whether the length of an array of arguments is equal to the expected count.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <param name="expectedCount">The expected count.</param>
+        /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
         public static void CompareArgsCount(string[] args, int expectedCount)
         {
             if (args.Length != expectedCount)

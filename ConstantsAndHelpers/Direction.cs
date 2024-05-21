@@ -1,5 +1,8 @@
 ﻿namespace ConstantsAndHelpers
 {
+    /// <summary>
+    /// Provides directions used in the grid.
+    /// </summary>
     public static class Direction
     {
         public const string North = "north";

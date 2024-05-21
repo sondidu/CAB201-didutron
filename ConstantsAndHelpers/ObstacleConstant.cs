@@ -1,5 +1,8 @@
 ﻿namespace ConstantsAndHelpers
 {
+    /// <summary>
+    /// Provides constants for the obstacle used.
+    /// </summary>
     public static class ObstacleConstant
     {
         public const char GuardChar = 'G';

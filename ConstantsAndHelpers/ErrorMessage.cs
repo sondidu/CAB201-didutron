@@ -1,5 +1,8 @@
 ﻿namespace ConstantsAndHelpers
 {
+    /// <summary>
+    /// Provides error messages.
+    /// </summary>
     public static class ErrorMessage
     {
         // Functionality-related messages
@@ -29,6 +32,11 @@
         public const string InvalidCommandKey = "Invalid command key: {0}.";
         public const string InvalidObstacleEnum = "Invalid ObstacleType enum.";
 
+        /// <summary>
+        /// Throws a <see cref="NotImplementedException"/> with a message indicating that the execute function at the leaf command is missing.
+        /// </summary>
+        /// <param name="args">The arguments used by the execute.</param>
+        /// <exception cref="NotImplementedException">Thrown when the execute function at leaf command is missing.</exception>
         public static void EmptyExecute(string[] args)
         {
             throw new NotImplementedException("Missing execute function at leaf command.");

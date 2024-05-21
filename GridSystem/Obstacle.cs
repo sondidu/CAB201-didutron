@@ -21,7 +21,7 @@ namespace GridSystem
         /// <summary>
         /// Initialises a new instance of the <see cref="Obstacle"/> class.
         /// </summary>
-        /// <param name="args">Arguments used to initialise the obstacle.</param>
+        /// <param name="args">The arguments used to initialise the obstacle.</param>
         /// <param name="charRep">Character representation of the obstacle.</param>
         /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments is incorrect.</exception>
         /// <exception cref="IntArgumentException">Thrown when the coordinates are not valid intagers.</exception>

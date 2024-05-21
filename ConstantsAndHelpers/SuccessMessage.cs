@@ -1,5 +1,8 @@
 ﻿namespace ConstantsAndHelpers
 {
+    /// <summary>
+    /// Provides success messages.
+    /// </summary>
     public static class SuccessMessage
     {
         public const string AddedObstacleFormat = "Successfully added {0} obstacle.";
@@ -12,6 +15,9 @@
         public const string Welcome = "Welcome to Didutron Obstacle Avoidance System!\n";
         public const string AskForCommand = "Enter command:";
 
+        /// <summary>
+        /// Prints the available commands.
+        /// </summary>
         public static void PrintCommands()
         {
             Console.WriteLine("Valid commands are:");
@@ -27,6 +33,13 @@
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Prints a movement message based with the specified direction, count, format and unit.
+        /// </summary>
+        /// <param name="direction">The direction of the movement.</param>
+        /// <param name="count">The number of units moved in the direction.</param>
+        /// <param name="format">The format of the message.</param>
+        /// <param name="unit">The unit of the movement.</param>
         public static void PrintMovement(string direction, int count, string format=DirectionUnitFormat, string unit=Unit)
         {
             if (count > 1)
@@ -36,6 +49,11 @@
             Console.WriteLine(format, direction, count, unit);
         }
 
+        /// <summary>
+        /// Capitalises the first letter of a string.
+        /// </summary>
+        /// <param name="word">The string to capitalise.</param>
+        /// <returns>The string with the first letter capitalised.</returns>
         public static string CapitaliseFirstLetter(string word)
         {
             if (word.Length == 0)
