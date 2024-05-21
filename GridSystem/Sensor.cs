@@ -12,7 +12,7 @@ namespace GridSystem
         /// <summary>
         /// Initialises a new instance of the <see cref="Sensor" /> class.
         /// </summary>
-        /// <param name="args">Arguments used to initialise the Sensor.</param>
+        /// <param name="args">The arguments used to initialise the Sensor.</param>
         /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
         /// <exception cref="DoubleArgumentException">Thrown when the radius is not a valid double or is less than or equal to 0.</exception>
         public Sensor(string[] args) : base(args, ObstacleConstant.SensorChar)

@@ -14,7 +14,7 @@ namespace GridSystem
         /// <summary>
         /// Initialises a new instance of the <see cref="Fence"/> class.
         /// </summary>
-        /// <param name="args">Arguments used to initialise the Fence.</param>
+        /// <param name="args">The arguments used to initialise the Fence.</param>
         /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
         /// <exception cref="StringArgumentException">Thrown when the orientation is not valid.</exception>
         /// <exception cref="IntArgumentException">Thrown when the length is not a valid integer or is less than or equal to 0.</exception>

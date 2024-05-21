@@ -12,7 +12,7 @@ namespace GridSystem
         /// <summary>
         /// Initialises a new instance of the <see cref="Camera"/> obstacle.
         /// </summary>
-        /// <param name="args">Arguments used to initialise the Camera.</param>
+        /// <param name="args">The arguments used to initialise the Camera.</param>
         /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
         /// <exception cref="StringArgumentException">Thrown when the direction is not valid.</exception>
         public Camera(string[] args) : base(args, ObstacleConstant.CameraChar)

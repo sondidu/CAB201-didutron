@@ -35,7 +35,7 @@
         /// <summary>
         /// Throws a <see cref="NotImplementedException"/> with a message indicating that the execute action at the leaf command is missing.
         /// </summary>
-        /// <param name="args">The arguments used by the execute.</param>
+        /// <param name="args">The arguments used by the execute action.</param>
         /// <exception cref="NotImplementedException">Thrown when the execute function at leaf command is missing.</exception>
         public static void EmptyExecute(string[] args)
         {

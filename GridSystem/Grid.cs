@@ -95,7 +95,7 @@ namespace GridSystem
         /// <summary>
         /// Checks whether a target coordinate is safe and prints the safe directions.
         /// </summary>
-        /// <param name="args">Arguments used to check the target coordinate.</param>
+        /// <param name="args">The arguments used to check the target coordinate.</param>
         /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
         /// <exception cref="IntArgumentException">Thrown when the coordinates are not valid integers.</exception>
         public void Check(string[] args)
@@ -137,7 +137,7 @@ namespace GridSystem
         /// <summary>
         /// Maps the grid within a specified region.
         /// </summary>
-        /// <param name="args">Arguments used to map the region.</param>
+        /// <param name="args">The arguments used to map the region.</param>
         /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
         /// <exception cref="IntArgumentException">Thrown when the coordinates or dimensions are not valid integers or the height or width are less than or equal to 0.</exception>
         public void Map(string[] args)
@@ -220,7 +220,7 @@ namespace GridSystem
         /// <summary>
         /// Finds a safe path from an agent's coordinate to an objective coordinate.
         /// </summary>
-        /// <param name="args">Arguments used to find the path.</param>
+        /// <param name="args">The arguments used to find the path.</param>
         /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
         /// <exception cref="IntArgumentException">Thrown when the coordinates are not valid integers.</exception>
         public void Path(string[] args)

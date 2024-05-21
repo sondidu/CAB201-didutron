@@ -10,7 +10,7 @@ namespace GridSystem
         /// <summary>
         /// Initialises a new instance of the <see cref="Guard"/> class.
         /// </summary>
-        /// <param name="args">Arguments used to initialise the Guard.</param>
+        /// <param name="args">The arguments used to initialise the Guard.</param>
         /// <exception cref="CustomExceptions.IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
         public Guard(string[] args) : base(args, ObstacleConstant.GuardChar)
         {
