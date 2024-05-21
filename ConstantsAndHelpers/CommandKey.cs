@@ -1,5 +1,8 @@
 ﻿namespace ConstantsAndHelpers
 {
+    /// <summary>
+    /// Provides constants for command keys.
+    /// </summary>
     public static class CommandKey
     {
         public const string Add = "add";

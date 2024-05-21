@@ -1,7 +1,7 @@
 ﻿namespace ConstantsAndHelpers
 {
     /// <summary>
-    /// Provides constants for the obstacle used.
+    /// Provides constants for the obstacles used.
     /// </summary>
     public static class ObstacleConstant
     {
