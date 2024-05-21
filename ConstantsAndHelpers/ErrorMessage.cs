@@ -33,13 +33,13 @@
         public const string InvalidObstacleEnum = "Invalid ObstacleType enum.";
 
         /// <summary>
-        /// Throws a <see cref="NotImplementedException"/> with a message indicating that the execute function at the leaf command is missing.
+        /// Throws a <see cref="NotImplementedException"/> with a message indicating that the execute action at the leaf command is missing.
         /// </summary>
         /// <param name="args">The arguments used by the execute.</param>
         /// <exception cref="NotImplementedException">Thrown when the execute function at leaf command is missing.</exception>
         public static void EmptyExecute(string[] args)
         {
-            throw new NotImplementedException("Missing execute function at leaf command.");
+            throw new NotImplementedException("Missing execute action at leaf command.");
         }
     }
 }
