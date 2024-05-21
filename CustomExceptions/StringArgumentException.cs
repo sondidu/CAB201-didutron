@@ -1,5 +1,8 @@
 ﻿namespace CustomExceptions
 {
+    /// <summary>
+    /// Represents an exception that occurs when a string argument is out of the expected range.
+    /// </summary>
     public class StringArgumentException : ArgumentOutOfRangeException
     {
         public StringArgumentException() : base() { }

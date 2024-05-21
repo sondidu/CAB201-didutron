@@ -1,5 +1,8 @@
 ﻿namespace CustomExceptions
 {
+    /// <summary>
+    /// Represents an exception that occurs when a command key is invalid.
+    /// </summary>
     public class InvalidCommandKeyException : ArgumentOutOfRangeException
     {
         public new string? ActualValue { get; }

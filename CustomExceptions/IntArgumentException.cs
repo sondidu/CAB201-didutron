@@ -1,5 +1,8 @@
 ﻿namespace CustomExceptions
 {
+    /// <summary>
+    /// Represents an exception that occurs when an argument cannot be parsed to a int.
+    /// </summary>
     public class IntArgumentException : ArgumentException
     {
         public IntArgumentException() : base() { }

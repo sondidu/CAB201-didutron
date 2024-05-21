@@ -1,5 +1,8 @@
 ﻿namespace CustomExceptions
 {
+    /// <summary>
+    /// Represents an exception that occurs when the number of arguments provided does not match.
+    /// </summary>
     public class IncorrectNumberOfArgumentsException : Exception
     {
         public int ExpectedNumberOfArguments { get; private set; }
