@@ -1,12 +1,30 @@
 ﻿using ConstantsAndHelpers;
 using CustomExceptions;
+
 namespace GridSystem
 {
+    /// <summary>
+    /// Abstract class of an obstacle.
+    /// </summary>
     public abstract class Obstacle
     {
+        /// <summary>
+        /// Position of the obstacle in the grid.
+        /// </summary>
         protected readonly Coord pos;
+
+        /// <summary>
+        /// Character representation of the obstacle.
+        /// </summary>
         public readonly char CharRep;
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="Obstacle"/> class.
+        /// </summary>
+        /// <param name="args">Arguments used to initialise the obstacle.</param>
+        /// <param name="charRep">Character representation of the obstacle.</param>
+        /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments is incorrect.</exception>
+        /// <exception cref="IntArgumentException">Thrown when the coordinates are not valid intagers.</exception>
         public Obstacle(string[] args, char charRep)
         {
             string strX, strY;
@@ -29,6 +47,13 @@ namespace GridSystem
             CharRep = charRep;
         }
 
-        public abstract bool HitObstacle(Coord target); 
+        /// <summary>
+        /// Determines whether the specified target hits the obstacle.
+        /// </summary>
+        /// <param name="target">The target coordintaes.</param>
+        /// <returns>
+        ///   <c>true</c> if <paramref name="target"/> hits the obstacle; otherwise, <c>false</c>.
+        /// </returns>
+        public abstract bool HitObstacle(Coord target);
     }
 }

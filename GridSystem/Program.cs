@@ -32,15 +32,15 @@ namespace GridSystem
                 { CommandKey.Check, new Command(grid.Check) },
                 { CommandKey.Map, new Command(grid.Map) },
                 { CommandKey.Path, new Command(grid.Path) },
-                { CommandKey.Help, new Command(UserInterface.Help) },
-                { CommandKey.Exit, new Command(UserInterface.Exit) }
+                { CommandKey.Help, new Command(MessageDisplay.ListCommands) },
+                { CommandKey.Exit, new Command(MessageDisplay.Exit) }
             };
             var rootCommand = new Command(commandChildren, ErrorMessage.InvalidOption);
             var runner = new Runner(rootCommand);
 
             // Start with welcome message and show list of commands
-            UserInterface.Welcome();
-            UserInterface.Help();
+            MessageDisplay.Welcome();
+            MessageDisplay.ListCommands();
 
             string? input = "";
             while (input != CommandKey.Exit)

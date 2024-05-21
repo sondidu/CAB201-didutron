@@ -2,7 +2,7 @@
 {
     public static class SuccessMessage
     {
-        public const string AddedObstacle = "Successfully added {0} obstacle.";
+        public const string AddedObstacleFormat = "Successfully added {0} obstacle.";
         public const string SafeDirections = "You can safely take any of the following directions:";
         public const string SelectedRegion = "Here is a map of obstacles in the selected region:";
         public const string ThereIsSafePath = "The following path will take you to the objective:";
@@ -12,7 +12,7 @@
         public const string Welcome = "Welcome to Didutron Obstacle Avoidance System!\n";
         public const string AskForCommand = "Enter command:";
 
-        public static void PrintHelp()
+        public static void PrintCommands()
         {
             Console.WriteLine("Valid commands are:");
             Console.WriteLine("add guard <x> <y>: registers a guard obstacle");

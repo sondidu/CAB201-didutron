@@ -1,22 +1,36 @@
 ﻿using ConstantsAndHelpers;
+
 namespace GridSystem
 {
+    /// <summary>
+    /// Represents a factory for creating and adding obstacles to a grid.
+    /// </summary>
     public class ObstacleFactory
     {
         private readonly Grid grid;
-        private readonly ObstacleType type;
+        private readonly ObstacleType obstacleType;
 
-        public ObstacleFactory(Grid grid, ObstacleType type)
+        /// <summary>
+        /// Initialises a new instance of the <see cref="ObstacleFactory"/> class.
+        /// </summary>
+        /// <param name="grid">The grid to which obstacles are added.</param>
+        /// <param name="obstacleType">The type of obstacle to create.</param>
+        public ObstacleFactory(Grid grid, ObstacleType obstacleType)
         {
             this.grid = grid;
-            this.type = type;
+            this.obstacleType = obstacleType;
         }
 
+        /// <summary>
+        /// Creates an obstacle of the specified type and adds it to the grid.
+        /// </summary>
+        /// <param name="args">The arguments used to initialise the obstacle.</param>
+        /// <exception cref="Exception">Thrown when the obstacle type enum is invalid.</exception>
         public void AddToGrid(string[] args)
         {
             Obstacle obstacle;
             string obstacleName;
-            switch (type)
+            switch (obstacleType)
             {
                 case ObstacleType.Guard:
                     obstacle = new Guard(args);
@@ -35,10 +49,10 @@ namespace GridSystem
                     obstacleName = ObstacleConstant.CameraName;
                     break;
                 default:
-                    throw new Exception(ErrorMessage.InvalidObstacle);
+                    throw new Exception(ErrorMessage.InvalidObstacleEnum);
             }
             grid.AddObstacle(obstacle);
-            Console.WriteLine(SuccessMessage.AddedObstacle, obstacleName);
+            Console.WriteLine(SuccessMessage.AddedObstacleFormat, obstacleName);
         }
     }
 }

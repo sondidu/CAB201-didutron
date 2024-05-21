@@ -14,7 +14,7 @@
         public const string UnsafeCoord = "Agent your location is compromised. Abort mission";
         public const string NoSafeDirections = "You cannot safely move in any direction. Abort mission.";
         public const string SameCoords = "Agent, you are already at the objective.";
-        public const string GoalObstructed = "The objective is blocked by an obstacle and cannot be reached.";
+        public const string ObjectiveObstructed = "The objective is blocked by an obstacle and cannot be reached.";
         public const string NoSafePath = "There is no safe path to the objective.";
 
         // Command-related messages
@@ -23,10 +23,11 @@
         public const string UnspecifiedObstacle = "You need to specify an obstacle type.";
         public const string InvalidOption = "Invalid option: {0}\nType 'help' to see a list of commands.";
 
-        // Defualt Command-related
+        // Default Command-related
         public const string DefaultInvalidNumberOfArgs = "Incorrect number of arguments. Expected {0} arguments but got {1}.";
         public const string UnspecifiedCommandKey = "A command key must be specified.";
         public const string InvalidCommandKey = "Invalid command key: {0}.";
+        public const string InvalidObstacleEnum = "Invalid ObstacleType enum.";
 
         public static void EmptyExecute(string[] args)
         {

@@ -2,9 +2,19 @@
 using ConstantsAndHelpers;
 namespace GridSystem
 {
+    /// <summary>
+    /// Represents a camera obstacle that covers an infinite triangular area in a specified direction.
+    /// </summary>
     public class Camera : Obstacle
     {
         private readonly string direction;
+
+        /// <summary>
+        /// Initialises a new instance of the <see cref="Camera"/> obstacle.
+        /// </summary>
+        /// <param name="args">Arguments used to initialise the Camera.</param>
+        /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
+        /// <exception cref="StringArgumentException">Thrown when the direction is not valid.</exception>
         public Camera(string[] args) : base(args, ObstacleConstant.CameraChar)
         {
             ArgumentHelper.CompareArgsCount(args, ArgumentHelper.CameraArgsLength);
@@ -18,6 +28,13 @@ namespace GridSystem
             this.direction = direction;
         }
 
+        /// <summary>
+        /// Determines whether the specified target is within range of the Camera.
+        /// </summary>
+        /// <param name="target">The target coordinates.</param>
+        /// <returns>
+        ///  <c>true</c> if <paramref name="target"/> is within the range of the Camera; otherwise, <c>false</c>.
+        /// </returns>
         public override bool HitObstacle(Coord target)
         {
             int diffX = Math.Abs(target.x - pos.x);

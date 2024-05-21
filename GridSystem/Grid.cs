@@ -2,29 +2,59 @@
 using ConstantsAndHelpers;
 namespace GridSystem
 {
+    /// <summary>
+    /// Represents a grid that contains various obstacles.
+    /// </summary>
     public class Grid
     {
+        /// <summary>
+        /// The list of obstacles in the grid.
+        /// </summary>
         private readonly List<Obstacle> obstacles;
+
+        /// <summary>
+        /// A dictionary that maps <see cref="Coord"/>s to their character representations for memoization.
+        /// </summary>
         private readonly Dictionary<Coord, char> memo;
-        private static readonly Dictionary<Coord, string> DirectionNames = new Dictionary<Coord, string>()
+
+        /// <summary>
+        /// A dictionary that maps direction coordinates to their names.
+        /// </summary>
+        private static readonly Dictionary<Coord, string> DirectionNames = new()
         {
             { new Coord(0, 1), Direction.North },
             { new Coord(0, -1) , Direction.South },
             { new Coord(1, 0) , Direction.East },
             { new Coord(-1, 0) , Direction.West }
         };
+
+        /// <summary>
+        /// An array of direction coordinates.
+        /// </summary>
         private static readonly Coord[] DirectionCoords = [.. DirectionNames.Keys];
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="Grid"/> class.
+        /// </summary>
         public Grid()
         {
-            obstacles = []; memo = [];
+            obstacles = [];
+            memo = [];
         }
 
+        /// <summary>
+        /// Adds an obstacle to the grid.
+        /// </summary>
+        /// <param name="obstacle">The obstacle to add.</param>
         public void AddObstacle(Obstacle obstacle)
         {
             obstacles.Add(obstacle);
         }
 
+        /// <summary>
+        /// Checks whether a target coordinate is safe and prints the safe directions.
+        /// </summary>
+        /// <param name="target">The target coordinate to check.</param>
         public void Check(Coord target)
         {
             // The location is not safe
@@ -62,6 +92,12 @@ namespace GridSystem
             }
         }
 
+        /// <summary>
+        /// Checks whether a target coordinate is safe and prints the safe directions.
+        /// </summary>
+        /// <param name="args">Arguments used to check the target coordinate.</param>
+        /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
+        /// <exception cref="IntArgumentException">Thrown when the coordinates are not valid integers.</exception>
         public void Check(string[] args)
         {
             ArgumentHelper.CompareArgsCount(args, ArgumentHelper.CheckArgsLength);
@@ -78,6 +114,11 @@ namespace GridSystem
             Check(target);
         }
 
+        /// <summary>
+        /// Maps the grid within a specified region.
+        /// </summary>
+        /// <param name="bottomLeft">The bottom left coordinate of the region.</param>
+        /// <param name="size">The size of the region.</param>
         public void Map(Coord bottomLeft, Coord size)
         {
             Console.WriteLine(SuccessMessage.SelectedRegion);
@@ -93,6 +134,12 @@ namespace GridSystem
             }
         }
 
+        /// <summary>
+        /// Maps the grid within a specified region.
+        /// </summary>
+        /// <param name="args">Arguments used to map the region.</param>
+        /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
+        /// <exception cref="IntArgumentException">Thrown when the coordinates or dimensions are not valid integers or the height or width are less than or equal to 0.</exception>
         public void Map(string[] args)
         {
             ArgumentHelper.CompareArgsCount(args, ArgumentHelper.MapArgsLength);
@@ -117,23 +164,28 @@ namespace GridSystem
             Map(bottomLeft, size);
         }
 
-        public void Path(Coord start, Coord end)
+        /// <summary>
+        /// Finds a safe path from an agent's coordinate to an objective coordinate.
+        /// </summary>
+        /// <param name="agentCoord">The agent's coordinate.</param>
+        /// <param name="objectiveCoord">The objective coordinate.</param>
+        public void Path(Coord agentCoord, Coord objectiveCoord)
         {
             // Same coords
-            if (start == end)
+            if (agentCoord == objectiveCoord)
             {
                 Console.WriteLine(ErrorMessage.SameCoords);
                 return;
             }
 
-            // End is obstructed
-            if (HitObstacleAt(end))
+            // Objective is obstructed
+            if (HitObstacleAt(objectiveCoord))
             {
-                Console.WriteLine(ErrorMessage.GoalObstructed);
+                Console.WriteLine(ErrorMessage.ObjectiveObstructed);
                 return;
             }
 
-            Coord[] path = AStarBidirectional(start, end);
+            Coord[] path = AStarBidirectional(agentCoord, objectiveCoord);
 
             // No safe path
             if (path.Length == 0)
@@ -165,6 +217,12 @@ namespace GridSystem
             SuccessMessage.PrintMovement(prevDirection, repeatedDirectionsCount);
         }
 
+        /// <summary>
+        /// Finds a safe path from an agent's coordinate to an objective coordinate.
+        /// </summary>
+        /// <param name="args">Arguments used to find the path.</param>
+        /// <exception cref="IncorrectNumberOfArgumentsException">Thrown when the number of arguments does not match the expected count.</exception>
+        /// <exception cref="IntArgumentException">Thrown when the coordinates are not valid integers.</exception>
         public void Path(string[] args)
         {
             ArgumentHelper.CompareArgsCount(args, ArgumentHelper.PathArgsLength);
@@ -189,11 +247,23 @@ namespace GridSystem
             Path(start, end);
         }
 
+        /// <summary>
+        /// Checks if a target coordinate hits an obstacle.
+        /// </summary>
+        /// <param name="target">The target coordinate to check.</param>
+        /// <returns>
+        ///   <c>true</c> if the target coordinate hits an obstacle; otherwise, <c>false</c>.
+        /// </returns>
         private bool HitObstacleAt(Coord target)
         {
             return GetCharAt(target) != ObstacleConstant.EmptyChar;
         }
 
+        /// <summary>
+        /// Gets the character representation of a coordinate.
+        /// </summary>
+        /// <param name="target">The target to get the character representation of.</param>
+        /// <returns>The character representation of the coordinate.</returns>
         private char GetCharAt(Coord target)
         {
             if (memo.TryGetValue(target, out char charRep))
@@ -212,6 +282,12 @@ namespace GridSystem
             return ObstacleConstant.EmptyChar;
         }
 
+        /// <summary>
+        /// Finds a safe path from a start coordinate to an end coordinate using two A* searches on the start and end coordinate.
+        /// </summary>
+        /// <param name="start">The start coordinate.</param>
+        /// <param name="end">The start coordinate.</param>
+        /// <returns>An array of coordinates representing the safe path if there is any; otherwise, an empty array.</returns>
         private Coord[] AStarBidirectional(Coord start, Coord end)
         {
             // These priority queues when enqueued prioritises the lowest fCost and hCost
@@ -260,30 +336,46 @@ namespace GridSystem
             return [.. startToIntersect, .. intersectToEnd];
         }
 
-        private void Expand(Coord currentCoord, Coord endCoord, ref PriorityQueue<Coord, Tuple<int, int>> openSet, ref Dictionary<Coord, int> gCosts, ref Dictionary<Coord, Coord> cameFrom)
+        /// <summary>
+        /// Expands the search to the neighbouring coordinates of the specified current coordinate.
+        /// </summary>
+        /// <param name="current">The current coordinate to expand on.</param>
+        /// <param name="end">The end coordinate.</param>
+        /// <param name="openSet">The set of coordinates to be evaluated.</param>
+        /// <param name="gCosts">The dictionary of g-costs of each coordinate.</param>
+        /// <param name="cameFrom">The dictionary of where each coordinate came from.</param>
+        private void Expand(Coord current, Coord end, ref PriorityQueue<Coord, Tuple<int, int>> openSet, ref Dictionary<Coord, int> gCosts, ref Dictionary<Coord, Coord> cameFrom)
         {
             foreach (Coord direction in DirectionCoords)
             {
-                Coord neighbour = currentCoord + direction;
+                Coord neighbour = current + direction;
 
                 if (HitObstacleAt(neighbour))
                 {
                     continue;
                 }
 
-                int tentativeGCost = gCosts[currentCoord] + 1;
+                int tentativeGCost = gCosts[current] + 1;
                 if (!gCosts.TryGetValue(neighbour, out int gCostNeighbour) || tentativeGCost < gCostNeighbour)
                 {
                     gCosts[neighbour] = tentativeGCost;
-                    int hCost = ManhattanDistance(neighbour, endCoord);
+                    int hCost = ManhattanDistance(neighbour, end);
                     int fCost = tentativeGCost + hCost;
 
                     openSet.Enqueue(neighbour, new Tuple<int, int>(fCost, hCost));
-                    cameFrom[neighbour] = currentCoord;
+                    cameFrom[neighbour] = current;
                 }
             }
         }
 
+        /// <summary>
+        /// Constructs a path from a coordinate to another coordinate.
+        /// </summary>
+        /// <param name="from">The coordinate from which the path starts.</param>
+        /// <param name="to">The coordinate to which the path ends.</param>
+        /// <param name="cameFrom">The dictionary of where each coordinate came from.</param>
+        /// <param name="reverse">Whether to reverse the path after it is constructed.</param>
+        /// <returns>A list of coordinates representing the path.</returns>
         private static List<Coord> ConstructPath(Coord from, Coord to, Dictionary<Coord, Coord> cameFrom, bool reverse = false)
         {
             List<Coord> path = [];
@@ -298,9 +390,15 @@ namespace GridSystem
             return path;
         }
 
-        private static int ManhattanDistance(Coord start, Coord end)
+        /// <summary>
+        /// Calculates the manhattan distance between two coordinates.
+        /// </summary>
+        /// <param name="coord1">The first coordintae.</param>
+        /// <param name="coord2">The second coordinate.</param>
+        /// <returns></returns>
+        private static int ManhattanDistance(Coord coord1, Coord coord2)
         {
-            return Math.Abs((start - end).x) + Math.Abs((start - end).y);
+            return Math.Abs((coord1 - coord2).x) + Math.Abs((coord1 - coord2).y);
         }
     }
 }
