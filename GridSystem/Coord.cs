@@ -5,7 +5,14 @@
     /// </summary>
     public readonly struct Coord
     {
+        /// <summary>
+        /// The x-coordinate.
+        /// </summary>
         public readonly int x;
+
+        /// <summary>
+        /// The y-coordinate.
+        /// </summary>
         public readonly int y;
 
         /// <summary>

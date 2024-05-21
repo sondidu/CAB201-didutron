@@ -38,7 +38,7 @@ namespace GridSystem
             var rootCommand = new Command(commandChildren, ErrorMessage.InvalidOption);
             var runner = new Runner(rootCommand);
 
-            // Start with welcome message and show list of commands
+            // Start with welcome message and list of commands
             MessageDisplay.Welcome();
             MessageDisplay.ListCommands();
 
@@ -47,10 +47,10 @@ namespace GridSystem
             {
                 Console.WriteLine(SuccessMessage.AskForCommand);
                 input = Console.ReadLine();
-                bool noErrors = runner.TryRun(input, out string message);
+                bool noErrors = runner.TryRun(input, out string errorMessage);
                 if (!noErrors)
                 {
-                    Console.WriteLine(message);
+                    Console.WriteLine(errorMessage);
                 }
             }
         }
