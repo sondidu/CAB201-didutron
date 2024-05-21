@@ -51,9 +51,7 @@ namespace GridSystem
         /// Determines whether the specified target hits the obstacle.
         /// </summary>
         /// <param name="target">The target coordintaes.</param>
-        /// <returns>
-        ///   <c>true</c> if <paramref name="target"/> hits the obstacle; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>true</c> if <paramref name="target"/> hits the obstacle; otherwise, <c>false</c>.</returns>
         public abstract bool HitObstacle(Coord target);
     }
 }

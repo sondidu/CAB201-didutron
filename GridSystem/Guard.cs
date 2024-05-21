@@ -21,9 +21,7 @@ namespace GridSystem
         /// Determines whether the specified target hits the Guard.
         /// </summary>
         /// <param name="target">The target coordinates.</param>
-        /// <returns>
-        ///   <c>true</c> if <paramref name="target"/> has the same position as the Guard; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>true</c> if <paramref name="target"/> has the same position as the Guard; otherwise, <c>false</c>.</returns>
         public override bool HitObstacle(Coord target)
         {
             return target == pos;

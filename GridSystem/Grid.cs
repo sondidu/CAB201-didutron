@@ -251,9 +251,7 @@ namespace GridSystem
         /// Checks if a target coordinate hits an obstacle.
         /// </summary>
         /// <param name="target">The target coordinate to check.</param>
-        /// <returns>
-        ///   <c>true</c> if the target coordinate hits an obstacle; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>true</c> if the target coordinate hits an obstacle; otherwise, <c>false</c>.</returns>
         private bool HitObstacleAt(Coord target)
         {
             return GetCharAt(target) != ObstacleConstant.EmptyChar;
@@ -395,7 +393,7 @@ namespace GridSystem
         /// </summary>
         /// <param name="coord1">The first coordintae.</param>
         /// <param name="coord2">The second coordinate.</param>
-        /// <returns></returns>
+        /// <returns>The absolute difference between <paramref name="coord1"/> and <paramref name="coord1"/>.</returns>
         private static int ManhattanDistance(Coord coord1, Coord coord2)
         {
             return Math.Abs((coord1 - coord2).x) + Math.Abs((coord1 - coord2).y);

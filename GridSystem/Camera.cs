@@ -32,9 +32,7 @@ namespace GridSystem
         /// Determines whether the specified target is within range of the Camera.
         /// </summary>
         /// <param name="target">The target coordinates.</param>
-        /// <returns>
-        ///  <c>true</c> if <paramref name="target"/> is within the range of the Camera; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>true</c> if <paramref name="target"/> is within the range of the Camera; otherwise, <c>false</c>.</returns>
         public override bool HitObstacle(Coord target)
         {
             int diffX = Math.Abs(target.x - pos.x);

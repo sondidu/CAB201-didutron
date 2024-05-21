@@ -32,7 +32,7 @@ namespace GridSystem
         /// Determines whether the specified target is within the radius of the Sensor.
         /// </summary>
         /// <param name="target">The target coordinates.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if <paramref name="target"/> is within the radius of the Sensor.</returns>
         public override bool HitObstacle(Coord target)
         {
             double diffX = target.x - pos.x;

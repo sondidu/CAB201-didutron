@@ -42,9 +42,7 @@ namespace GridSystem
         /// Determines whether the specified target hits the Fence.
         /// </summary>
         /// <param name="target">The target coordinates.</param>
-        /// <returns>
-        ///   <c>true</c> if <paramref name="target"/> hits the Fence; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns><c>true</c> if <paramref name="target"/> hits the Fence; otherwise, <c>false</c>.</returns>
         public override bool HitObstacle(Coord target)
         {
             if (orientation == Direction.East)
