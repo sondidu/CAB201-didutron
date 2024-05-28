@@ -37,7 +37,7 @@
         public const string DirectionUnitFormat = "Head {0} for {1} {2}.";
 
         /// <summary>
-        /// The unit for coordinates.
+        /// The unit measure for coordinates.
         /// Intended to be used in the {2} placeholder of <see cref="DirectionUnitFormat"/>.
         /// </summary>
         public const string Unit = "klick";
