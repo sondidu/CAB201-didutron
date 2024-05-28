@@ -79,7 +79,7 @@
         }
 
         /// <summary>
-        /// Prints a movement message based with the specified direction, count, format and unit.
+        /// Prints a movement message based on the specified direction, count, format and unit.
         /// </summary>
         /// <param name="direction">The direction of the movement.</param>
         /// <param name="count">The number of units moved in the direction.</param>
