@@ -5,18 +5,63 @@
     /// </summary>
     public static class SuccessMessage
     {
+        /// <summary>
+        /// The format message for successfully adding an obstacle.
+        /// Used in <see cref="GridSystem.ObstacleFactory.AddToGrid(string[])"/>.
+        /// The {0} placeholder is replaced with the type of obstacle that was added.
+        /// </summary>
         public const string AddedObstacleFormat = "Successfully added {0} obstacle.";
+
+        /// <summary>
+        /// The message for safe directions.
+        /// Used in <see cref="GridSystem.Grid.Check(GridSystem.Coord)"/>.
+        /// </summary>
         public const string SafeDirections = "You can safely take any of the following directions:";
+
+        /// <summary>
+        /// The message for a selected region.
+        /// Used in <see cref="GridSystem.Grid.Map(GridSystem.Coord, GridSystem.Coord)"/>.
+        /// </summary>
         public const string SelectedRegion = "Here is a map of obstacles in the selected region:";
+
+        /// <summary>
+        /// The message for a safe path.
+        /// Used in <see cref="GridSystem.Grid.Path(GridSystem.Coord, GridSystem.Coord)"/>.
+        /// </summary>
         public const string ThereIsSafePath = "The following path will take you to the objective:";
+
+        /// <summary>
+        /// The format message for displaying the direction, count and unit.
+        /// The {0}, {1}, and {2} placeholder is replaced with the direction, count and unit respectively.
+        /// </summary>
         public const string DirectionUnitFormat = "Head {0} for {1} {2}.";
+
+        /// <summary>
+        /// The unit for coordinates.
+        /// Intended to be used in the {2} placeholder of <see cref="DirectionUnitFormat"/>.
+        /// </summary>
         public const string Unit = "klick";
+
+        /// <summary>
+        /// The message for exiting the <see cref="GridSystem"/>.
+        /// </summary>
         public const string Exit = "Thank you for using Didutron.";
+
+        /// <summary>
+        /// The message for starting <see cref="GridSystem"/>.
+        /// Used in <see cref="GridSystem.Program"/>.
+        /// </summary>
         public const string Welcome = "Welcome to Didutron Obstacle Avoidance System!\n";
+
+        /// <summary>
+        /// The message to prompt for a command.
+        /// Used in <see cref="GridSystem.Program"/>.
+        /// </summary>
         public const string AskForCommand = "Enter command:";
 
         /// <summary>
-        /// Prints the available commands.
+        /// Prints the available commands using multiple <see cref="Console.WriteLine()"/> calls.
+        /// Used in <see cref="GridSystem.MessageDisplay.ListCommands(string[])"/>.
         /// </summary>
         public static void PrintCommands()
         {
@@ -38,8 +83,8 @@
         /// </summary>
         /// <param name="direction">The direction of the movement.</param>
         /// <param name="count">The number of units moved in the direction.</param>
-        /// <param name="format">The format of the message.</param>
-        /// <param name="unit">The unit of the movement.</param>
+        /// <param name="format">The format of the message. Default is <see cref="DirectionUnitFormat"/></param>
+        /// <param name="unit">The unit of the movement. Default is <see cref="Unit"/></param>
         public static void PrintMovement(string direction, int count, string format=DirectionUnitFormat, string unit=Unit)
         {
             if (count > 1)

@@ -49,7 +49,7 @@ namespace GridSystem
                     obstacleName = ObstacleConstant.CameraName;
                     break;
                 default:
-                    throw new Exception(ErrorMessage.InvalidObstacleEnum);
+                    throw new Exception(ErrorMessage.DefaultInvalidObstacleEnum);
             }
             grid.AddObstacle(obstacle);
             Console.WriteLine(SuccessMessage.AddedObstacleFormat, obstacleName);

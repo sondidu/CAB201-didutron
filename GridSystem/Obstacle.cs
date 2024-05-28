@@ -35,7 +35,7 @@ namespace GridSystem
             }
             catch (IndexOutOfRangeException ex)
             {
-                throw new IncorrectNumberOfArgumentsException(ex.Message, ArgumentHelper.MinimumObstacleLength, ex);
+                throw new IncorrectNumberOfArgumentsException(ex.Message, ArgumentHelper.MinimumObstacleArgsLength, ex);
             }
 
             if (!int.TryParse(strX, out int x) || !int.TryParse(strY, out int y))

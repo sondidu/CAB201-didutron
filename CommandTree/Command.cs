@@ -42,7 +42,7 @@ namespace CommandTree
         /// <param name="children">The child commands.</param>
         /// <param name="invalidCommandKeyMsg">The error message of an invalid command key.</param>
         /// <param name="unspecifiedCommandKeyMsg">The error message of an unspecified command key.</param>
-        public Command(Dictionary<string, Command> children, string invalidCommandKeyMsg = ErrorMessage.InvalidCommandKey, string unspecifiedCommandKeyMsg = ErrorMessage.UnspecifiedCommandKey)
+        public Command(Dictionary<string, Command> children, string invalidCommandKeyMsg = ErrorMessage.DefaultInvalidCommandKey, string unspecifiedCommandKeyMsg = ErrorMessage.DefaultUnspecifiedCommandKey)
         {
             Children = children;
             InvalidCommandKeyMsg = invalidCommandKeyMsg;

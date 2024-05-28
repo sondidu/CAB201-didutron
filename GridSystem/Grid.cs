@@ -118,12 +118,12 @@ namespace GridSystem
         /// Maps the grid within a specified region.
         /// </summary>
         /// <param name="bottomLeft">The bottom left coordinate of the region.</param>
-        /// <param name="size">The size of the region.</param>
-        public void Map(Coord bottomLeft, Coord size)
+        /// <param name="dimensions">The dimensions of the region.</param>
+        public void Map(Coord bottomLeft, Coord dimensions)
         {
             Console.WriteLine(SuccessMessage.SelectedRegion);
 
-            Coord topRight = bottomLeft + size;
+            Coord topRight = bottomLeft + dimensions;
             for (int y = topRight.y - 1; y >= bottomLeft.y; y--)
             {
                 for (int x = bottomLeft.x; x < topRight.x; x++)
@@ -181,7 +181,7 @@ namespace GridSystem
             // Objective is obstructed
             if (HitObstacleAt(objectiveCoord))
             {
-                Console.WriteLine(ErrorMessage.ObjectiveObstructed);
+                Console.WriteLine(ErrorMessage.ObjectiveNotSafe);
                 return;
             }
 
