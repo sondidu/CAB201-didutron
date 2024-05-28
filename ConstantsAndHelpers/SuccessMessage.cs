@@ -7,8 +7,8 @@
     {
         /// <summary>
         /// The format message for successfully adding an obstacle.
-        /// Used in <see cref="GridSystem.ObstacleFactory.AddToGrid(string[])"/>.
         /// The {0} placeholder is replaced with the type of obstacle that was added.
+        /// Used in <see cref="GridSystem.ObstacleFactory.AddToGrid(string[])"/>.
         /// </summary>
         public const string AddedObstacleFormat = "Successfully added {0} obstacle.";
 
