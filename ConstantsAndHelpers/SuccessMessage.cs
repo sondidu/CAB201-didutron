@@ -33,6 +33,7 @@
         /// <summary>
         /// The format message for displaying the direction, count and unit.
         /// The {0}, {1}, and {2} placeholder is replaced with the direction, count and unit respectively.
+        /// Intended to be used in <see cref="PrintMovement(string, int, string, string)"/>.
         /// </summary>
         public const string DirectionUnitFormat = "Head {0} for {1} {2}.";
 
