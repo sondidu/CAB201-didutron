@@ -15,7 +15,7 @@ namespace ConstantsAndHelpers
 
         /// <summary>
         /// The argument length of a <see cref="GridSystem.Guard"/>.
-        /// Guard takes two arguments: x-coordinate and y-coordinate.
+        /// The arguments are: x-coordinate and y-coordinate.
         /// </summary>
         public const int GuardArgsLength = 2;
 
@@ -63,82 +63,82 @@ namespace ConstantsAndHelpers
 
         /* Argument indexes */
         /// <summary>
-        /// The index of the x-coordinate in an argument represented as an array of strings.
+        /// The index of the x-coordinate in an argument array represented as an array of strings.
         /// </summary>
         public const int CoordXIdx = 0;
 
         /// <summary>
-        /// The index of the y-coordinate in an argument represented as an array of strings.
+        /// The index of the y-coordinate in an argument array represented as an array of strings.
         /// </summary>
         public const int CoordYIdx = 1;
 
         /// <summary>
-        /// The index of a <see cref="GridSystem.Fence"/>'s orientation in an argument represented as an array of strings.
+        /// The index of a <see cref="GridSystem.Fence"/>'s orientation in an argument array represented as an array of strings.
         /// </summary>
         public const int OrientationIdx = 2;
 
         /// <summary>
-        /// The index of a <see cref="GridSystem.Fence"/>'s length in an argument represented as an array of strings.
+        /// The index of a <see cref="GridSystem.Fence"/>'s length in an argument array represented as an array of strings.
         /// </summary>
         public const int LengthIdx = 3;
 
         /// <summary>
-        /// The index of a <see cref="GridSystem.Sensor"/>'s radius in an argument represented as an array of strings.
+        /// The index of a <see cref="GridSystem.Sensor"/>'s radius in an argument array represented as an array of strings.
         /// </summary>
         public const int RadiusIdx = 2;
 
         /// <summary>
-        /// The index of a <see cref="GridSystem.Camera"/>'s direction in an argument represented as an array of strings.
+        /// The index of a <see cref="GridSystem.Camera"/>'s direction in an argument array represented as an array of strings.
         /// </summary>
         public const int DirectionIdx = 2;
 
         /// <summary>
-        /// The index of the target's x-coordinate from <see cref="GridSystem.Grid.Check(string[])"/> in an argument represented as an array of strings.
+        /// The index of the target's x-coordinate from <see cref="GridSystem.Grid.Check(string[])"/> in an argument array represented as an array of strings.
         /// </summary>
         public const int CheckTargetXIdx = 0;
 
         /// <summary>
-        /// The index of the target's y-coordinate from <see cref="GridSystem.Grid.Check(string[])"/> in an argument represented as an array of strings.
+        /// The index of the target's y-coordinate from <see cref="GridSystem.Grid.Check(string[])"/> in an argument array represented as an array of strings.
         /// </summary>
         public const int CheckTargetYIdx = 1;
 
         /// <summary>
-        /// The index of the <see cref="GridSystem.Grid.Map(string[])"/>'s bottom-left x-coordinate in an argument represented as an array of strings.
+        /// The index of the <see cref="GridSystem.Grid.Map(string[])"/>'s bottom-left x-coordinate in an argument array represented as an array of strings.
         /// </summary>
         public const int MapLeftXIdx = 0;
 
         /// <summary>
-        /// The index of the <see cref="GridSystem.Grid.Map(string[])"/>'s bottom-left y-coordinate in an argument represented as an array of strings.
+        /// The index of the <see cref="GridSystem.Grid.Map(string[])"/>'s bottom-left y-coordinate in an argument array represented as an array of strings.
         /// </summary>
         public const int MapBottomYIdx = 1;
 
         /// <summary>
-        /// The index of the <see cref="GridSystem.Grid.Map(string[])"/>'s width in an argument represented as an array of strings.
+        /// The index of the <see cref="GridSystem.Grid.Map(string[])"/>'s width in an argument array represented as an array of strings.
         /// </summary>
         public const int MapWidthIdx = 2;
 
         /// <summary>
-        /// The index of the <see cref="GridSystem.Grid.Map(string[])"/>'s height in an argument represented as an array of strings.
+        /// The index of the <see cref="GridSystem.Grid.Map(string[])"/>'s height in an argument array represented as an array of strings.
         /// </summary>
         public const int MapHeightIdx = 3;
 
         /// <summary>
-        /// The index of the <see cref="GridSystem.Grid.Path(string[])"/>'s starting x-coordinate in an argument represented as an array of strings.
+        /// The index of the <see cref="GridSystem.Grid.Path(string[])"/>'s starting x-coordinate in an argument array represented as an array of strings.
         /// </summary>
         public const int StartXIdx = 0;
 
         /// <summary>
-        /// The index of the <see cref="GridSystem.Grid.Path(string[])"/>'s starting y-coordinate in an argument represented as an array of strings.
+        /// The index of the <see cref="GridSystem.Grid.Path(string[])"/>'s starting y-coordinate in an argument array represented as an array of strings.
         /// </summary>
         public const int StartYIdx = 1;
 
         /// <summary>
-        /// The index of the <see cref="GridSystem.Grid.Path(string[])"/>'s ending x-coordinate in an argument represented as an array of strings.
+        /// The index of the <see cref="GridSystem.Grid.Path(string[])"/>'s ending x-coordinate in an argument array represented as an array of strings.
         /// </summary>
         public const int EndXIdx = 2;
 
         /// <summary>
-        /// The index of the <see cref="GridSystem.Grid.Path(string[])"/>'s ending y-coordinate in an argument represented as an array of strings.
+        /// The index of the <see cref="GridSystem.Grid.Path(string[])"/>'s ending y-coordinate in an argument array represented as an array of strings.
         /// </summary>
         public const int EndYIdx = 3;
 
