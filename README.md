@@ -1,6 +1,6 @@
 # What is Didutron?
 
-It's a CLI program for CAB201 Assignment 2 in Semester 1, 2024. The program is essentially a grid-coordinate system that can add obstacles, detect obstacles, create a map of some area of the grid, and find a valid path between two points. The goal of this program is to understand OOP and apply best-practice programming principles.
+It's a CLI program for CAB201 Assignment 2 in Semester 1, 2024. The name "Didutron" here doesn't matter, I just want to name it that 😁. The program is essentially a grid-coordinate system that can add obstacles, detect obstacles, create a map of some area of the grid, and find a valid path between two points. The goal of this program is to understand OOP and apply best-practice programming principles.
 
 ## Implementation
 - OOP principles to define various types of obstacles, exceptions, and constants
